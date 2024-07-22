@@ -13,7 +13,6 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/auth")
-//@Setter
 @AllArgsConstructor
 public class AuthController {
 
@@ -22,7 +21,7 @@ public class AuthController {
 
     @RequestMapping("/login")
     public String loginPage() {
-//        userService.test();
+      userService.test();
         return "login";
     }
 
