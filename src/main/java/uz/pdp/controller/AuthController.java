@@ -16,7 +16,6 @@ import java.util.Objects;
 @AllArgsConstructor
 public class AuthController {
 
-
     private final UserService userService;
 
     @RequestMapping("/login")
