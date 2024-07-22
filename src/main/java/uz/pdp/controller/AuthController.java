@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uz.pdp.DTO.LoginDTO;
 import uz.pdp.entity.User;
-import uz.pdp.entity.UserEntity;
 import uz.pdp.service.UserService;
 
 import java.util.Objects;
@@ -36,13 +35,15 @@ public class AuthController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute LoginDTO loginDto, HttpSession session) {
-//        UserEntity userEntity = userService.signIn(loginDto.username(), loginDto.password());
-//        session.setAttribute("user", userEntity);
-//        if (Objects.equals(userEntity.getRole(),"USER")) {
-//            return "event-page";
-//        }else if (Objects.equals(userEntity.getRole(),"ORGANIZER")) {
-//            return "organizationMenu";
-//        }
+        User userEntity = userService.signIn(loginDto.username(), loginDto.password());
+        session.setAttribute("user", userEntity);
+        if (Objects.equals(userEntity.getRole(),"PATIENT")) {
+            return "patient-page";
+        }else if (Objects.equals(userEntity.getRole(),"MAIN_DOCTOR")) {
+            return "admin-page";
+        }else if(Objects.nonNull(userEntity.getRole())) {
+            return "doctor-page";
+        }
         return "login";
     }
 
