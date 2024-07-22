@@ -1,5 +1,4 @@
 package uz.pdp.service;
-
 import uz.pdp.entity.BaseEntity;
 import uz.pdp.repository.BaseRepository;
 
