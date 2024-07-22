@@ -1,10 +1,10 @@
 package uz.pdp.service;
-
+import lombok.NoArgsConstructor;
 import uz.pdp.entity.BaseEntity;
 import uz.pdp.repository.BaseRepository;
 
 import java.util.UUID;
-
+@NoArgsConstructor
 public abstract class BaseService <T extends BaseEntity, R extends BaseRepository<T>> {
     protected R repository;
 
