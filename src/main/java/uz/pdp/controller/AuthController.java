@@ -1,6 +1,7 @@
 package uz.pdp.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +14,16 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/auth")
+//@Setter
 @AllArgsConstructor
 public class AuthController {
 
+    @Autowired
     private final UserService userService;
 
     @RequestMapping("/login")
     public String loginPage() {
-      userService.test();
+//        userService.test();
         return "login";
     }
 
