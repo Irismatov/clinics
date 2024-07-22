@@ -2,19 +2,32 @@ package uz.pdp.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uz.pdp.DTO.LoginDTO;
 import uz.pdp.entity.User;
+import uz.pdp.repository.UserRepository;
 import uz.pdp.service.UserService;
 
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/")
 @AllArgsConstructor
 public class AuthController {
+
+    static {
+        UserService userService1 = new UserService(new UserRepository());
+        userService1.save(new User());
+    }
+
+    @GetMapping()
+        public String index(Model model) {
+        return "index";
+        }
 
 
     private final UserService userService;
