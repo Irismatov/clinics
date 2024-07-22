@@ -1,6 +1,9 @@
 package uz.pdp.service;
 import uz.pdp.entity.User;
+import uz.pdp.enumerators.UserRole;
 import uz.pdp.repository.UserRepository;
+
+import java.util.List;
 
 public class UserService extends BaseService<User, UserRepository>{
 
@@ -17,5 +20,10 @@ public class UserService extends BaseService<User, UserRepository>{
 
     public User signIn(String username, String password) {
         return repository.signIn(username, password);
+    }
+
+
+    public List<User> getAllDoctorsBySpecialty(String specialties) {
+        return repository.getAllDoctors(UserRole.valueOf(specialties));
     }
 }
