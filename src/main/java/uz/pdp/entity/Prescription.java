@@ -20,8 +20,5 @@ public class Prescription extends BaseEntity {
     private Diagnose diagnose;
     private String medicine;
     private String dosage;
-    /*
-    v
-     */
     private String duration;
 }
