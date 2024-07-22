@@ -1,7 +1,10 @@
 package uz.pdp.service;
+import org.springframework.stereotype.Service;
 import uz.pdp.entity.User;
 import uz.pdp.repository.UserRepository;
 
+
+@Service
 public class UserService extends BaseService<User, UserRepository>{
 
 
