@@ -3,6 +3,8 @@ import org.springframework.stereotype.Service;
 import uz.pdp.entity.User;
 import uz.pdp.repository.UserRepository;
 
+import java.util.List;
+
 
 @Service
 public class UserService extends BaseService<User, UserRepository>{
@@ -21,4 +23,9 @@ public class UserService extends BaseService<User, UserRepository>{
     public User signIn(String username, String password) {
         return repository.signIn(username, password);
     }
+
+    public List<User> getAllDoctors(){
+        return repository.getDoctors();
+    }
+
 }

@@ -6,6 +6,8 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.User;
 
+import java.util.List;
+
 
 @Repository
 public class UserRepository extends BaseRepository<User> {
@@ -27,5 +29,14 @@ public class UserRepository extends BaseRepository<User> {
                 .setParameter("password", password)
                 .getSingleResult();
     }
+
+
+    public List<User> getDoctors(){
+        return entityManager.createQuery(
+                        "SELECT e FROM User e WHERE e.role IN (:roles)", User.class)
+                .setParameter("roles", List.of("DENTIST", "SURGEON","GENERAL_PRACTITIONER","NEUROLOGIST"))
+                .getResultList();
+    }
+
 
 }

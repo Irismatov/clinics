@@ -1,20 +1,16 @@
-package uz.pdp.entity;
+package uz.pdp.DTO;
 
-
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import uz.pdp.enumerators.UserRole;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
-@Builder
-@Entity
-@Table(name = "users")
 
-public class User extends BaseEntity {
+public class DoctorsDTO {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private String firstname;
