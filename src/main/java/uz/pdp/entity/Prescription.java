@@ -10,8 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
+
 @Entity
 @Table(name = "prescriptions")
 public class Prescription extends BaseEntity {

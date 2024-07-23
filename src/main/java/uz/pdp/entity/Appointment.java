@@ -1,25 +1,24 @@
 package uz.pdp.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import uz.pdp.enumerators.AppointmentStatus;
 
 import java.time.LocalDateTime;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
+
 @Entity
 @Table(name = "appointments")
 public class Appointment extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private User doctor;
+
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private User patient;

@@ -5,10 +5,10 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.entity.BaseEntity;
 
+import java.util.List;
 import java.util.UUID;
 
 public abstract class BaseRepository <T extends BaseEntity> {
-
     protected Class<T> type;
 
     @PersistenceContext
@@ -34,4 +34,8 @@ public abstract class BaseRepository <T extends BaseEntity> {
         entityManager.merge(entity);
     }
 
+    @Transactional
+    public List<T> findAll() {
+        return entityManager.createQuery("from " + type.getName(), type).getResultList();
+    }
 }
