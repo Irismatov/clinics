@@ -28,4 +28,7 @@ public class UserService extends BaseService<User, UserRepository>{
         return repository.getDoctors();
     }
 
+    public void checkMail(String email) {
+        repository.checkMail(email);
+    }
 }

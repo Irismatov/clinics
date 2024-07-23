@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uz.pdp.DTO.LoginDTO;
+import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.service.UserService;
+import uz.pdp.service.VerificationService;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -24,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private final UserService userService;
+
+    @Autowired
+    private final VerificationService verificationService;
 
     @RequestMapping("/login")
     public String loginPage() {
@@ -54,11 +59,28 @@ public class AuthController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String Register(@ModelAttribute User userEntity, HttpSession session) {
-        // sign in logica
-        User user = userService.save(userEntity);
-        session.setAttribute("userId", user.getId());
-        return "login";
+    public String Register(@ModelAttribute RegisterDTO registerDTO, Model model) {
+        String code = verificationService.sendVerificationCode(registerDTO.getEmail());
+        boolean b = verificationService.checkVerificationCode(code, registerDTO.getCode());
+        User user = User.builder()
+                .age(registerDTO.getAge())
+                .address(registerDTO.getAddress())
+                .email(registerDTO.getEmail())
+                .role(UserRole.PATIENT)
+                .gender(registerDTO.getGender())
+                .lastname(registerDTO.getLastname())
+                .firstname(registerDTO.getFirstname())
+                .phoneNumber(registerDTO.getPhoneNumber())
+                .password(registerDTO.getPassword())
+                .username(registerDTO.getUsername())
+                .build();
+        if (b) {
+            userService.save(user);
+            return "index";
+        } else {
+            model.addAttribute("message", "wrong verification code");
+            return "register";
+        }
     }
 
 

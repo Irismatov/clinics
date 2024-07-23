@@ -8,9 +8,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Index page</title>
 </head>
 <body>
-
+    <button>
+        <a href="${pageContext.request.contextPath}/auth/login">Login</a>
+    </button>
+    <button>
+        <a href="${pageContext.request.contextPath}/auth/register">Register</a>
+    </button>
 </body>
 </html>
