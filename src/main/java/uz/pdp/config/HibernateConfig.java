@@ -28,8 +28,8 @@ public class HibernateConfig {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource(
                 environment.getRequiredProperty("spring.datasource.url"),
-                environment.getRequiredProperty("spring.datasource.username"),
-                environment.getRequiredProperty("spring.datasource.password")
+                environment.getRequiredProperty("spring.datasource.postgres"),
+                environment.getRequiredProperty("spring.datasource.2023")
 
         );
         dataSource.setDriverClassName(environment.getRequiredProperty("spring.datasource.driver-class-name"));
