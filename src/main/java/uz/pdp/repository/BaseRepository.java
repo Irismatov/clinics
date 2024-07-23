@@ -34,4 +34,5 @@ public abstract class BaseRepository <T extends BaseEntity> {
         entityManager.merge(entity);
     }
 
+
 }

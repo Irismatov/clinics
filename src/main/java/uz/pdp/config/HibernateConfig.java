@@ -1,6 +1,4 @@
 package uz.pdp.config;
-
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +9,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
@@ -27,12 +26,12 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource(
-                environment.getRequiredProperty("spring.datasource.url=jdbc:postgresql://localhost:5432/online_hospital"),
-                environment.getRequiredProperty("spring.datasource.username=postgres"),
-                environment.getRequiredProperty("spring.datasource.password=2023")
+                environment.getRequiredProperty("spring.datasource.url"),
+                environment.getRequiredProperty("spring.datasource.username"),
+                environment.getRequiredProperty("spring.datasource.password")
 
         );
-        dataSource.setDriverClassName(environment.getRequiredProperty("spring.datasource.driver-class-name=org.postgresql.Driver"));
+        dataSource.setDriverClassName(environment.getRequiredProperty("spring.datasource.driver-class-name"));
         return dataSource;
     }
 
@@ -56,6 +55,7 @@ public class HibernateConfig {
 
     @Bean
     public HibernateTransactionManager transactionManager(@Autowired LocalSessionFactoryBean localSessionFactoryBean) {
-        return new HibernateTransactionManager(localSessionFactoryBean.getObject());
+        return new HibernateTransactionManager(Objects.requireNonNull(localSessionFactoryBean.getObject()));
+        /// nimadir bo'ldi
     }
 }
