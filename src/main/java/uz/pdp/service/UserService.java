@@ -1,10 +1,13 @@
 package uz.pdp.service;
+import org.springframework.stereotype.Service;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.repository.UserRepository;
 
 import java.util.List;
 
+
+@Service
 public class UserService extends BaseService<User, UserRepository>{
 
 
