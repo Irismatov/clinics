@@ -102,7 +102,7 @@
                     <p>Age: ${doctor.age}</p>
                     <p>Email: ${doctor.email}</p>
 
-                    <form action="${pageContext.request.contextPath}/appointment/selectDoctor" method="post" style="display:inline;">
+                    <form action="${pageContext.request.contextPath}/appointment/select-doctor" method="post" style="display:inline;">
                         <input type="hidden" name="doctorId" value="${doctor.id}">
                         <button type="submit" class="select-button">Select</button>
                     </form>

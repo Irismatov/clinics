@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uz.pdp.entity.Appointment;
+import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
 import uz.pdp.service.AppointmentService;
 import uz.pdp.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Controller
@@ -68,15 +70,17 @@ private final AppointmentService service;
     return "doctor-specialties";
     }
 
-    @RequestMapping("/create")
-    public String firstCreateMenuPage() {
-        return "create-appointment";
+    @RequestMapping("/select-doctor")
+    public String showTimeTablePage() {
+        return "new-appointment";
     }
 
-  /*  @RequestMapping(value = "/create", method = RequestMethod.POST)
-   public String getAllDoctors(){
-        return "create-appointment";
-    }*/
+    @RequestMapping(value = "/select-doctor", method = RequestMethod.POST)
+   public String showTimeTable(@RequestParam("doctorId") UUID id, Model model){
+        List<TimeSlot> timeSlots = service.getAvailableTimeSlots(id);
+        model.addAttribute("timeSlots", timeSlots);
+        return "new-appointment";
+    }
 
 
 }

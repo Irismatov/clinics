@@ -1,15 +1,17 @@
 package uz.pdp.repository;
 
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.Appointment;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class AppointmentRepository extends BaseRepository<Appointment>{
+public class AppointmentRepository extends BaseRepository<Appointment> {
 
 
     public List<Appointment> getAll() {
@@ -25,4 +27,11 @@ public class AppointmentRepository extends BaseRepository<Appointment>{
         return query.getResultList();
     }
 
+    public List<Appointment> findByDoctorIdAndDate(UUID doctorId, LocalDate date) {
+        Query query = entityManager.createQuery
+        ("SELECT a FROM Appointment a WHERE a.doctor.id = :doctor_id AND DATE(a.startTime) = :date", Appointment.class);
+        query.setParameter("doctor_id", doctorId);
+        query.setParameter("date", date);
+        return query.getResultList();
+    }
 }
