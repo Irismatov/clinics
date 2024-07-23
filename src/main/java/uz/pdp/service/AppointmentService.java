@@ -1,5 +1,6 @@
 package uz.pdp.service;
 
+import org.springframework.stereotype.Service;
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class AppointmentService extends BaseService<Appointment, AppointmentRepository> {
 
     public List<Appointment> getUserAppointments(User patient) {

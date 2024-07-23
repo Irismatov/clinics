@@ -1,4 +1,5 @@
 package uz.pdp.service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
@@ -10,7 +11,7 @@ import java.util.List;
 @Service
 public class UserService extends BaseService<User, UserRepository>{
 
-
+    @Autowired
     public UserService(UserRepository userRepository) {
         repository = userRepository;
     }

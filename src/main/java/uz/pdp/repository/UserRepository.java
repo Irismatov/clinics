@@ -3,6 +3,7 @@ package uz.pdp.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 import jakarta.persistence.Query;
 import uz.pdp.entity.User;
@@ -10,6 +11,7 @@ import uz.pdp.enumerators.UserRole;
 
 import java.util.List;
 
+@Repository
 public class UserRepository extends BaseRepository<User> {
 
     public List<User> getAllDoctors(UserRole specialties) {
