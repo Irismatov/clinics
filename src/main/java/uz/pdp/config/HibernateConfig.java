@@ -27,12 +27,12 @@ public class HibernateConfig {
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource(
-                environment.getRequiredProperty("spring.datasource.url"),
-                environment.getRequiredProperty("spring.datasource.postgres"),
-                environment.getRequiredProperty("spring.datasource.2023")
+                environment.getRequiredProperty("spring.datasource.url=jdbc:postgresql://localhost:5432/online_hospital"),
+                environment.getRequiredProperty("spring.datasource.username=postgres"),
+                environment.getRequiredProperty("spring.datasource.password=2023")
 
         );
-        dataSource.setDriverClassName(environment.getRequiredProperty("spring.datasource.driver-class-name"));
+        dataSource.setDriverClassName(environment.getRequiredProperty("spring.datasource.driver-class-name=org.postgresql.Driver"));
         return dataSource;
     }
 
