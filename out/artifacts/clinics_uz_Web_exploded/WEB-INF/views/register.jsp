@@ -9,74 +9,65 @@
 <html>
 <head>
     <title>Register Page</title>
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}form.css">
 </head>
 <body>
-private String firstname;
-private String lastname;
-@Column(unique = true)
-private String username;
-private String password;
-private String email;
-private Integer age;
-private String gender;
-private String phoneNumber;
-private String address;
-private String code;
+<h4 style="color: red">${message}</h4>
 
 <div class="container">
     <div class="text">
         Sign Up
     </div>
-    <form action="${pageContext.request.contextPath}/register" method="post">
+    <form action="${pageContext.request.contextPath}/auth/register" method="post">
         <div class="form-row">
             <div class="input-data">
                 <input type="text" name="firstname" required>
                 <div class="underline"></div>
-                <label for="">firstname</label>
+                <label for=>firstname</label>
             </div>
             <div class="input-data">
                 <input type="text" name="lastname" required>
                 <div class="underline"></div>
-                <label for="">Lastname</label>
+                <label for=>Lastname</label>
             </div>
             <div class="input-data">
                 <input type="text" name="username" required>
                 <div class="underline"></div>
-                <label for="">Username</label>
+                <label for=>Username</label>
             </div>
             <div class="input-data">
                 <input type="password" name="password" required>
                 <div class="underline"></div>
-                <label for="">password</label>
+                <label for=>password</label>
             </div>
         </div>
         <div class="form-row">
             <div class="input-data">
                 <input type="text" name="age" required>
                 <div class="underline"></div>
-                <label for="">Age</label>
+                <label for=>Age</label>
             </div>
             <div class="input-data">
                 <input type="text" name="gender" required>
                 <div class="underline"></div>
-                <label for="">Gender</label>
+                <label for=>Gender</label>
             </div>
             <div class="input-data">
                 <input type="text" name="address" required>
                 <div class="underline"></div>
-                <label for="">Address</label>
+                <label for=>Address</label>
+            </div>
+            <div class="input-data">
+                <input type="text" name="phoneNumber" required>
+                <div class="underline"></div>
+                <label for=>phoneNumber</label>
             </div>
             <div class="input-data">
                 <input type="email" name="email" required>
                 <div class="underline"></div>
-                <label for="">Email</label>
+                <label for=>Email</label>
             </div>
-            <div class="input-data">
-                <input type="text" name="code" required>
-                <div class="underline"></div>
-                <label for="">Code</label>
-            </div>
+
 
         </div>
         <div class="form-row submit-btn">

@@ -23,11 +23,7 @@ public class VerificationService {
     }
 
     public String sendVerificationCode(String email) {
-        try {
-            userService.checkMail(email);
-        } catch (Exception e){
-            throw new RuntimeException("This email already exists");
-        }
+
 
         Properties props = getProps();
 

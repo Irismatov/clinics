@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import uz.pdp.DTO.LoginDTO;
 import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
@@ -59,9 +56,15 @@ public class AuthController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String Register(@ModelAttribute RegisterDTO registerDTO, Model model) {
-        String code = verificationService.sendVerificationCode(registerDTO.getEmail());
-        boolean b = verificationService.checkVerificationCode(code, registerDTO.getCode());
+    public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
+
+       //userService.checkIfEmailExists -> message(Username already exists)
+        //userService.checkIfUsernameExists -> message(Email already exists)
+
+        if (userService.checkMail(registerDTO.getEmail(), registerDTO.getUsername())) {
+            model.addAttribute("message", "This email address or username is already in use!");
+            return "register";
+        }
         User user = User.builder()
                 .age(registerDTO.getAge())
                 .address(registerDTO.getAddress())
@@ -74,13 +77,28 @@ public class AuthController {
                 .password(registerDTO.getPassword())
                 .username(registerDTO.getUsername())
                 .build();
-        if (b) {
-            userService.save(user);
+
+       // User user = userService.registerDto(registerDTO);
+
+        String code = verificationService.sendVerificationCode(registerDTO.getEmail());
+
+
+        session.setAttribute("user", registerDTO);
+        session.setAttribute("code", code);
+        return "registration-code";
+    }
+
+    @PostMapping("/registration-code")
+    public String registrationCode( @ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
+         String code = (String) session.getAttribute("code");
+        RegisterDTO user = (RegisterDTO) session.getAttribute("user");
+        if (code.equals(registerDTO.getCode())) {
+            userService.registerDto(user);
             return "index";
-        } else {
-            model.addAttribute("message", "wrong verification code");
-            return "register";
         }
+        model.addAttribute("message", "Invalid code");
+        return "registration-code";
+
     }
 
 
@@ -92,5 +110,7 @@ public class AuthController {
         model.addAttribute("users", userService.getAllDoctors());
         return "admin-page";
     }
+
+
 
 }
