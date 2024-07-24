@@ -30,6 +30,7 @@ public class UserService extends BaseService<User, UserRepository>{
         return repository.getDoctors();
     }
 
+
     public List<User> getAllDoctorsBySpecialty(String specialties) {
         return repository.getAllDoctors(UserRole.valueOf(specialties));
     }

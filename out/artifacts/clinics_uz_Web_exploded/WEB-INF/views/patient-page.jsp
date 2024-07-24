@@ -1,8 +1,5 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 1
-  Date: 24.07.2024
-  Time: 13:37
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -41,8 +38,11 @@
             color: black;
         }
     </style>
+    <title>Patient Page</title>
 </head>
 <body>
+    <button>
+    <a href="${pageContext.request.contextPath}/my-profile">My Profile</a>
 <div style="display: flex">
     <button class="button">
         <a href="${pageContext.request.contextPath}/appointment/show">My appointments</a>
