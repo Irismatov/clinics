@@ -95,9 +95,6 @@ public class AuthController {
 
     }
 
-
-
-
     @PostMapping("/create-doctors")
     public String create(@ModelAttribute User userEntity, Model model , HttpSession session) {
         userEntity.setCreatedAt(LocalDateTime.now());
