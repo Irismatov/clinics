@@ -71,11 +71,10 @@
     </script>
 </head>
 <body>
-<button>
-    <a href="${pageContext.request.contextPath}/auth/login">Login</a>
-</button>
-<button>
-    <a href="${pageContext.request.contextPath}/auth/register">Register</a>
-</button>
+<div class="background"></div>
+<div class="content">
+    <button class="btn" onclick="redirectToLogin()">Login</button>
+    <button class="btn" onclick="window.location.href='${pageContext.request.contextPath}/auth/register'">Register</button>
+</div>
 </body>
 </html>

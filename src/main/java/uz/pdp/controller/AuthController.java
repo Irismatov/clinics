@@ -14,6 +14,7 @@ import uz.pdp.service.VerificationService;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth")
@@ -57,10 +58,10 @@ public class AuthController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String Register(@ModelAttribute User userEntity, HttpSession session) {
-        // sign in logica
         User user = userService.save(userEntity);
         session.setAttribute("user", user);
         return "login";
+    }
 
     public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
         if (userService.checkMail(registerDTO.getEmail(), registerDTO.getUsername())) {
@@ -135,5 +136,6 @@ public class AuthController {
         model.addAttribute("users", userService.getAllDoctors());
         return "admin-page";
     }
+
 
 }
