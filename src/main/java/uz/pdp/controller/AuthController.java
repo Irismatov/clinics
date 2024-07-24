@@ -40,12 +40,13 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session) {
+    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session, Model model) {
         User userEntity = userService.signIn(loginDto.username(), loginDto.password());
         session.setAttribute("user", userEntity);
         if (userEntity.getRole() == UserRole.PATIENT) {
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
+            model.addAttribute("users", userService.getAllDoctors());
             return "admin-page";
         }else if(Objects.nonNull(userEntity.getRole())) {
             return "doctor-page";
@@ -56,10 +57,6 @@ public class AuthController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
-
-       //userService.checkIfEmailExists -> message(Username already exists)
-        //userService.checkIfUsernameExists -> message(Email already exists)
-
         if (userService.checkMail(registerDTO.getEmail(), registerDTO.getUsername())) {
             model.addAttribute("message", "This email address or username is already in use!");
             return "register";
@@ -76,9 +73,6 @@ public class AuthController {
                 .password(registerDTO.getPassword())
                 .username(registerDTO.getUsername())
                 .build();
-
-       // User user = userService.registerDto(registerDTO);
-
         String code = verificationService.sendVerificationCode(registerDTO.getEmail());
 
 
@@ -86,6 +80,7 @@ public class AuthController {
         session.setAttribute("code", code);
         return "registration-code";
     }
+
 
     @PostMapping("/registration-code")
     public String registrationCode(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
@@ -133,11 +128,6 @@ public class AuthController {
         model.addAttribute("users", userService.getAllDoctors());
         return "admin-page";
     }
-
-
-
-
-
 
 
 }

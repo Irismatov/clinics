@@ -71,11 +71,11 @@
     </script>
 </head>
 <body>
-    <button>
-        <a href="${pageContext.request.contextPath}/auth/login">Login</a>
-    </button>
-    <button>
-        <a href="${pageContext.request.contextPath}/auth/register">Register</a>
-    </button>
+<button>
+    <a href="${pageContext.request.contextPath}/auth/login">Login</a>
+</button>
+<button>
+    <a href="${pageContext.request.contextPath}/auth/register">Register</a>
+</button>
 </body>
 </html>
