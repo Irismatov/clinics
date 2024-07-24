@@ -25,6 +25,18 @@ public class UserRepository extends BaseRepository<User> {
                 .getResultList();
     }
 
+    public boolean checkMail(String email, String currentUsername) {
+        try {
+            entityManager.createQuery("from User where email =:email or username =:currentUsername", User.class)
+                    .setParameter("email", email)
+                    .setParameter("currentUsername", currentUsername)
+                    .getSingleResult();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
     public User signIn(String username, String password) {
         return entityManager.createQuery("select u from User u where u.username =:username and " +
