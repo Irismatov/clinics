@@ -13,7 +13,7 @@
 <body>
 <div style="display: flex">
     <button class="button">
-        <a href="${pageContext.request.contextPath}/appointment">My appointments</a>
+        <a href="${pageContext.request.contextPath}/appointment/show">My appointments</a>
     </button>
 
     <button class="button">
