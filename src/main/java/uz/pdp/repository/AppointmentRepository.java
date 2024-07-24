@@ -42,6 +42,8 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
         query.setParameter("date", date);
         query.setParameter("excludedStatuses", EnumSet.of(AppointmentStatus.CANCELLED));
         return query.getResultList();
+    }
+
     public List<Appointment> findAppointmentsByUser(UUID userId) {
 
         return entityManager.createQuery("from Appointment where patient.id = :userId", Appointment.class)

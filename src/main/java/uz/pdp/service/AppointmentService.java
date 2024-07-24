@@ -49,9 +49,6 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
 
 
 
-
-
-
     public List<Appointment> findAppointmentsByUser(UUID userId) {
         return repository.findAppointmentsByUser(userId);
     }
