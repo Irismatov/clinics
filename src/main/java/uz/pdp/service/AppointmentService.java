@@ -54,7 +54,6 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
     }
 
 
-
     private List<TimeSlot> createTimeSlots(LocalTime start, LocalTime end, int intervalMinutes, int breakMinutes) {
         List<TimeSlot> timeSlots = new ArrayList<>();
         LocalTime current = start;

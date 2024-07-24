@@ -45,7 +45,6 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
     }
 
     public List<Appointment> findAppointmentsByUser(UUID userId) {
-
         return entityManager.createQuery("from Appointment where patient.id = :userId", Appointment.class)
                 .setParameter("userId", userId)
                 .getResultList();
