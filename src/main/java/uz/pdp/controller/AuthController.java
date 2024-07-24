@@ -57,7 +57,7 @@ public class AuthController {
     public String Register(@ModelAttribute User userEntity, HttpSession session) {
         // sign in logica
         User user = userService.save(userEntity);
-        session.setAttribute("userId", user.getId());
+        session.setAttribute("user", user);
         return "login";
     }
 

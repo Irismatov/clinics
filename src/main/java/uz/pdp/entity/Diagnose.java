@@ -18,7 +18,7 @@ public class Diagnose extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "appointment_id")
     private Appointment appointment;
-
+    private String description;
     @OneToMany(mappedBy = "diagnose", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Prescription> prescriptions;
 }
