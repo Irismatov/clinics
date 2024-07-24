@@ -64,18 +64,15 @@
             background-color: #0056b3;
         }
     </style>
-    <script>
-        function redirectToLogin() {
-            window.location.href = "/auth/login";
-        }
-    </script>
 </head>
 <body>
-<button>
-    <a href="${pageContext.request.contextPath}/auth/login">Login</a>
-</button>
-<button>
-    <a href="${pageContext.request.contextPath}/auth/register">Register</a>
-</button>
+<div class="background">
+    <div class="content">
+        <h1>Welcome</h1>
+        <p>Please log in or register to continue</p>
+        <a href="${pageContext.request.contextPath}/auth/login" class="btn">Login</a>
+        <a href="${pageContext.request.contextPath}/auth/register" class="btn">Register</a>
+    </div>
+</div>
 </body>
 </html>
