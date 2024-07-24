@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import uz.pdp.DTO.LoginDTO;
 import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
@@ -14,7 +17,6 @@ import uz.pdp.service.VerificationService;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth")
@@ -57,6 +59,13 @@ public class AuthController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+<<<<<<< HEAD
+    public String Register(@ModelAttribute User userEntity, HttpSession session) {
+        // sign in logica
+        User user = userService.save(userEntity);
+        session.setAttribute("user", user);
+        return "login";
+=======
     public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
 
        //userService.checkIfEmailExists -> message(Username already exists)
@@ -100,9 +109,8 @@ public class AuthController {
         model.addAttribute("message", "Invalid code");
         return "registration-code";
 
+>>>>>>> f32834f3cfbbe642585537d69438d18a53ca9cb4
     }
-
-
 
 
     @PostMapping("/create-doctors")
@@ -114,6 +122,8 @@ public class AuthController {
         return "admin-page";
     }
 
+<<<<<<< HEAD
+=======
     @GetMapping("create" )
     public String create(Model model) {
         model.addAttribute("users", userService.getAllDoctors());
@@ -142,4 +152,5 @@ public class AuthController {
 
 
 
+>>>>>>> f32834f3cfbbe642585537d69438d18a53ca9cb4
 }

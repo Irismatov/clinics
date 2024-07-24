@@ -30,6 +30,10 @@ public class UserService extends BaseService<User, UserRepository>{
         return repository.getDoctors();
     }
 
+<<<<<<< HEAD
+    public List<User> getAllDoctorsBySpecialty(String specialties) {
+        return repository.getAllDoctors(UserRole.valueOf(specialties));
+=======
     public boolean checkMail(String email, String username) {
         return repository.checkMail(email, username);
     }
@@ -49,6 +53,7 @@ public class UserService extends BaseService<User, UserRepository>{
                 .build();
         save(user);
         return user;
+>>>>>>> f32834f3cfbbe642585537d69438d18a53ca9cb4
     }
 
 }
