@@ -61,7 +61,7 @@ public class AuthController {
         User user = userService.save(userEntity);
         session.setAttribute("user", user);
         return "login";
-    }
+    }`
 
     public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
         if (userService.checkMail(registerDTO.getEmail(), registerDTO.getUsername())) {
