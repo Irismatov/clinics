@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import uz.pdp.DTO.LoginDTO;
+import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.service.UserService;
+import uz.pdp.service.VerificationService;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -24,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private final UserService userService;
+
+    @Autowired
+    private final VerificationService verificationService;
 
     @RequestMapping("/login")
     public String loginPage() {
@@ -54,11 +59,57 @@ public class AuthController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
+<<<<<<< HEAD
     public String Register(@ModelAttribute User userEntity, HttpSession session) {
         // sign in logica
         User user = userService.save(userEntity);
         session.setAttribute("user", user);
         return "login";
+=======
+    public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
+
+       //userService.checkIfEmailExists -> message(Username already exists)
+        //userService.checkIfUsernameExists -> message(Email already exists)
+
+        if (userService.checkMail(registerDTO.getEmail(), registerDTO.getUsername())) {
+            model.addAttribute("message", "This email address or username is already in use!");
+            return "register";
+        }
+        User user = User.builder()
+                .age(registerDTO.getAge())
+                .address(registerDTO.getAddress())
+                .email(registerDTO.getEmail())
+                .role(UserRole.PATIENT)
+                .gender(registerDTO.getGender())
+                .lastname(registerDTO.getLastname())
+                .firstname(registerDTO.getFirstname())
+                .phoneNumber(registerDTO.getPhoneNumber())
+                .password(registerDTO.getPassword())
+                .username(registerDTO.getUsername())
+                .build();
+
+       // User user = userService.registerDto(registerDTO);
+
+        String code = verificationService.sendVerificationCode(registerDTO.getEmail());
+
+
+        session.setAttribute("user", registerDTO);
+        session.setAttribute("code", code);
+        return "registration-code";
+    }
+
+    @PostMapping("/registration-code")
+    public String registrationCode(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
+         String code = (String) session.getAttribute("code");
+        RegisterDTO user = (RegisterDTO) session.getAttribute("user");
+        if (code.equals(registerDTO.getCode())) {
+            userService.registerDto(user);
+            return "index";
+        }
+        model.addAttribute("message", "Invalid code");
+        return "registration-code";
+
+>>>>>>> f32834f3cfbbe642585537d69438d18a53ca9cb4
     }
 
 
@@ -71,4 +122,35 @@ public class AuthController {
         return "admin-page";
     }
 
+<<<<<<< HEAD
+=======
+    @GetMapping("create" )
+    public String create(Model model) {
+        model.addAttribute("users", userService.getAllDoctors());
+        return "auth/create";
+    }
+
+    @RequestMapping("/delete-doctor")
+    public String delete(@RequestParam(name = "userId") UUID userId, Model model) {
+        userService.delete(userId);
+        model.addAttribute("users", userService.getAllDoctors());
+        return "admin-page";
+   }
+
+    @RequestMapping(value = "/update-doctor", method = RequestMethod.POST)
+    public String update(@RequestParam(name = "userId") UUID userID , @ModelAttribute User updatedUser, Model model) {
+        updatedUser.setId(userID);
+        userService.update(updatedUser);
+        model.addAttribute("message", "Doctor updated successfully");
+        model.addAttribute("users", userService.getAllDoctors());
+        return "admin-page";
+    }
+
+
+
+
+
+
+
+>>>>>>> f32834f3cfbbe642585537d69438d18a53ca9cb4
 }

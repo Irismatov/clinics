@@ -71,12 +71,11 @@
     </script>
 </head>
 <body>
-<div class="background">
-    <div class="content">
-        <h1>Beautiful Moving Effect</h1>
-        <p>Enjoy the smooth gradient transition</p>
-        <button class="btn" onclick="redirectToLogin()">Go to Login</button>
-    </div>
-</div>
+    <button>
+        <a href="${pageContext.request.contextPath}/auth/login">Login</a>
+    </button>
+    <button>
+        <a href="${pageContext.request.contextPath}/auth/register">Register</a>
+    </button>
 </body>
 </html>

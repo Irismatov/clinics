@@ -134,7 +134,4 @@ public class AppointmentController {
 
         return "doctor-specialties";
     }
-
-
-
 }

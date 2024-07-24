@@ -8,9 +8,6 @@
           <element id="module-output" name="clinics.uz" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.11" />
-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.11" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:2.1.0-alpha1" />
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:6.1.10" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:6.1.10" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:6.1.10" />
@@ -51,6 +48,11 @@
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.7.2" />
           <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.42.0" />
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.34" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.30" />
         </element>
       </element>
     </root>
