@@ -1,4 +1,5 @@
 package uz.pdp.repository;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -8,6 +9,7 @@ import uz.pdp.entity.Appointment;
 import uz.pdp.enumerators.AppointmentStatus;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -18,6 +20,7 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
     public AppointmentRepository() {
         this.type = Appointment.class;
     }
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -48,6 +51,16 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
         return entityManager.createQuery("from Appointment where patient.id = :userId", Appointment.class)
                 .setParameter("userId", userId)
                 .getResultList();
+    }
+
+    public List<Appointment> findAcceptedAppointmentsByDoctor(UUID doctorId) {
+        Query query = entityManager.createQuery("SELECT a FROM Appointment a WHERE a.doctor.id = :doctor_id" +
+                " and a.status = :desired_status" +
+                " and a.endTime >= :current_time", Appointment.class);
+        query.setParameter("doctor_id", doctorId);
+        query.setParameter("desired_status", AppointmentStatus.ACCEPTED);
+        query.setParameter("current_time", LocalDateTime.now());
+        return query.getResultList();
     }
 
 }
