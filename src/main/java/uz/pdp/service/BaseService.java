@@ -16,8 +16,8 @@ public abstract class BaseService <T extends BaseEntity, R extends BaseRepositor
         return repository.save(entity);
     }
 
-    public T update(T entity) {
-        return repository.save(entity);
+    public void update(T entity) {
+         repository.update(entity);
     }
 
     public void delete(UUID id) {

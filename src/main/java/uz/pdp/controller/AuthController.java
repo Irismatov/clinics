@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import uz.pdp.DTO.LoginDTO;
-import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.service.UserService;
-import uz.pdp.service.VerificationService;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -23,9 +24,6 @@ public class AuthController {
 
     @Autowired
     private final UserService userService;
-
-    @Autowired
-    private final VerificationService verificationService;
 
     @RequestMapping("/login")
     public String loginPage() {
@@ -102,6 +100,8 @@ public class AuthController {
     }
 
 
+
+
     @PostMapping("/create-doctors")
     public String create(@ModelAttribute User userEntity, Model model , HttpSession session) {
         userEntity.setCreatedAt(LocalDateTime.now());
@@ -110,6 +110,32 @@ public class AuthController {
         model.addAttribute("users", userService.getAllDoctors());
         return "admin-page";
     }
+
+    @GetMapping("create" )
+    public String create(Model model) {
+        model.addAttribute("users", userService.getAllDoctors());
+        return "auth/create";
+    }
+
+    @RequestMapping("/delete-doctor")
+    public String delete(@RequestParam(name = "userId") UUID userId, Model model) {
+        userService.delete(userId);
+        model.addAttribute("users", userService.getAllDoctors());
+        return "admin-page";
+   }
+
+    @RequestMapping(value = "/update-doctor", method = RequestMethod.POST)
+    public String update(@RequestParam(name = "userId") UUID userID , @ModelAttribute User updatedUser, Model model) {
+        updatedUser.setId(userID);
+        userService.update(updatedUser);
+        model.addAttribute("message", "Doctor updated successfully");
+        model.addAttribute("users", userService.getAllDoctors());
+        return "admin-page";
+    }
+
+
+
+
 
 
 

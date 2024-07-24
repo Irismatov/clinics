@@ -29,3 +29,4 @@ public class User extends BaseEntity {
     private String phoneNumber;
     private String address;
 }
+
