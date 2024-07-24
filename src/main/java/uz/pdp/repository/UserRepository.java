@@ -14,6 +14,10 @@ import java.util.List;
 @Repository
 public class UserRepository extends BaseRepository<User> {
 
+    {
+        type = User.class;
+    }
+
 
     @PersistenceContext
     private EntityManager entityManager;

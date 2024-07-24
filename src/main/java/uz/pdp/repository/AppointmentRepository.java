@@ -15,6 +15,9 @@ import java.util.UUID;
 
 @Repository
 public class AppointmentRepository extends BaseRepository<Appointment> {
+    public AppointmentRepository() {
+        this.type = Appointment.class;
+    }
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -39,6 +42,11 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
         query.setParameter("date", date);
         query.setParameter("excludedStatuses", EnumSet.of(AppointmentStatus.CANCELLED));
         return query.getResultList();
+    public List<Appointment> findAppointmentsByUser(UUID userId) {
+
+        return entityManager.createQuery("from Appointment where patient.id = :userId", Appointment.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 
 }

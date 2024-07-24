@@ -1,4 +1,5 @@
 package uz.pdp.service;
+
 import org.springframework.stereotype.Service;
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
@@ -15,8 +16,8 @@ import java.util.UUID;
 @Service
 public class AppointmentService extends BaseService<Appointment, AppointmentRepository>{
 
-    public AppointmentService(AppointmentRepository rep) {
-        repository = rep;
+    public AppointmentService(AppointmentRepository appointmentRepository) {
+        repository = appointmentRepository;
     }
 
     public List<Appointment> getUserAppointments(User patient) {
@@ -42,10 +43,17 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
                 }
             }
 
-            //allTimeSlots.removeIf(slot -> slot.overlapsWith(startTime, endTime));
+        }
+        return allTimeSlots;
         }
 
-        return allTimeSlots;
+
+
+
+
+
+    public List<Appointment> findAppointmentsByUser(UUID userId) {
+        return repository.findAppointmentsByUser(userId);
     }
 
 
