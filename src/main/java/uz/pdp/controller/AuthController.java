@@ -4,17 +4,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import uz.pdp.DTO.LoginDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
-import uz.pdp.exception.DataAlreadyExistsException;
-import uz.pdp.exception.InvalidInputException;
 import uz.pdp.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth")
@@ -39,13 +39,12 @@ public class AuthController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session , Model model) {
+    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session) {
         User userEntity = userService.signIn(loginDto.username(), loginDto.password());
         session.setAttribute("user", userEntity);
         if (userEntity.getRole() == UserRole.PATIENT) {
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
-            model.addAttribute("users", userService.getAllDoctors());
             return "admin-page";
         }else if(Objects.nonNull(userEntity.getRole())) {
             return "doctor-page";
@@ -55,11 +54,49 @@ public class AuthController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String Register(@ModelAttribute User userEntity, HttpSession session) {
-        // sign in logica
-        User user = userService.save(userEntity);
-        session.setAttribute("userId", user.getId());
-        return "login";
+    public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
+
+       //userService.checkIfEmailExists -> message(Username already exists)
+        //userService.checkIfUsernameExists -> message(Email already exists)
+
+        if (userService.checkMail(registerDTO.getEmail(), registerDTO.getUsername())) {
+            model.addAttribute("message", "This email address or username is already in use!");
+            return "register";
+        }
+        User user = User.builder()
+                .age(registerDTO.getAge())
+                .address(registerDTO.getAddress())
+                .email(registerDTO.getEmail())
+                .role(UserRole.PATIENT)
+                .gender(registerDTO.getGender())
+                .lastname(registerDTO.getLastname())
+                .firstname(registerDTO.getFirstname())
+                .phoneNumber(registerDTO.getPhoneNumber())
+                .password(registerDTO.getPassword())
+                .username(registerDTO.getUsername())
+                .build();
+
+       // User user = userService.registerDto(registerDTO);
+
+        String code = verificationService.sendVerificationCode(registerDTO.getEmail());
+
+
+        session.setAttribute("user", registerDTO);
+        session.setAttribute("code", code);
+        return "registration-code";
+    }
+
+    @PostMapping("/registration-code")
+    public String registrationCode( @ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
+         String code = (String) session.getAttribute("code");
+        RegisterDTO user = (RegisterDTO) session.getAttribute("user");
+        if (code.equals(registerDTO.getCode())) {
+            userService.registerDto(user);
+            return "index";
+        }
+        model.addAttribute("message", "Invalid code");
+        return "registration-code";
+
     }
 
 
@@ -95,6 +132,8 @@ public class AuthController {
         model.addAttribute("users", userService.getAllDoctors());
         return "admin-page";
     }
+
+
 
 
 
