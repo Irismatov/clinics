@@ -4,17 +4,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import uz.pdp.DTO.LoginDTO;
+import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.service.UserService;
+import uz.pdp.service.VerificationService;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/auth")
@@ -24,6 +24,9 @@ public class AuthController {
 
     @Autowired
     private final UserService userService;
+
+    @Autowired
+    private final VerificationService verificationService;
 
     @RequestMapping("/login")
     public String loginPage() {
@@ -87,7 +90,7 @@ public class AuthController {
     }
 
     @PostMapping("/registration-code")
-    public String registrationCode( @ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
+    public String registrationCode(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
          String code = (String) session.getAttribute("code");
         RegisterDTO user = (RegisterDTO) session.getAttribute("user");
         if (code.equals(registerDTO.getCode())) {

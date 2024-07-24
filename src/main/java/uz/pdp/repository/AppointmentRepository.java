@@ -2,8 +2,6 @@ package uz.pdp.repository;
 
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.Appointment;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

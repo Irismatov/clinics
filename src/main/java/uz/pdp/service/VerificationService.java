@@ -1,8 +1,6 @@
 package uz.pdp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import uz.pdp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
