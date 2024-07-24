@@ -36,8 +36,6 @@ public class AuthController {
         return "register";
     }
 
-
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute LoginDTO loginDto, HttpSession session , Model model) {
         User userEntity = userService.signIn(loginDto.username(), loginDto.password());
