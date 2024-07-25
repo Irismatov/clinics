@@ -2,7 +2,6 @@ package uz.pdp.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.Appointment;
 import uz.pdp.enumerators.AppointmentStatus;
@@ -15,9 +14,11 @@ import java.util.UUID;
 
 @Repository
 public class AppointmentRepository extends BaseRepository<Appointment> {
+
     public AppointmentRepository() {
         this.type = Appointment.class;
     }
+
     @PersistenceContext
     private EntityManager entityManager;
 
