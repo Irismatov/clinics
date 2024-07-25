@@ -86,6 +86,7 @@ public class AppointmentController {
         return "available-days";
     }
 
+
     @RequestMapping("/select-doctor")
     public String showTimeTablePage() {
         return "available-days";
@@ -99,6 +100,7 @@ public class AppointmentController {
         model.addAttribute("selectedDate", date);
         return "available-time-slots";
     }
+
 
     @RequestMapping(value = "/select-day", method = RequestMethod.POST)
     public String showTimeSlots(@RequestParam("doctorId") UUID doctorId, @RequestParam("date") LocalDate date, Model model) {
@@ -115,6 +117,8 @@ public class AppointmentController {
 
         User doctor = userService.findById((UUID) session.getAttribute("doctorId"));
         LocalDate date = (LocalDate) session.getAttribute("date");
+
+        User user = (User) session.getAttribute("user");
 
         LocalTime start = LocalTime.parse(startStr);
         LocalTime end = LocalTime.parse(endStr);

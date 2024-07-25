@@ -13,7 +13,6 @@ import uz.pdp.service.UserService;
 import uz.pdp.service.VerificationService;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @Controller
@@ -55,6 +54,7 @@ public class AuthController {
         return "patient-page";
     }
 
+
     @PostMapping("add-balance")
     public String addBalance(@RequestParam(name = "amount") double amount, Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
@@ -81,7 +81,7 @@ public class AuthController {
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
             return "admin-page";
-        }else if(Objects.nonNull(userEntity.getRole())) {
+        }else if(userEntity.getRole() != null) {
             return "doctor-page";
         }
         model.addAttribute("error", "Username or password incorrect");
