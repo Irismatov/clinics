@@ -113,12 +113,14 @@ public class AppointmentController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createAppointment(@RequestParam("start") String startStr, @RequestParam("end") String endStr,
-                                    HttpSession session) {
+                                    HttpSession session , Model model) {
 
         User doctor = userService.findById((UUID) session.getAttribute("doctorId"));
         LocalDate date = (LocalDate) session.getAttribute("date");
 
+
         User user = (User) session.getAttribute("user");
+
 
         LocalTime start = LocalTime.parse(startStr);
         LocalTime end = LocalTime.parse(endStr);
