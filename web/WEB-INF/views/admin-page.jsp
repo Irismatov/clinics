@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>Create Doctor</h2>
-<form action="${pageContext.request.contextPath}/auth/create-doctors" method="post">
+<form action="${pageContext.request.contextPath}/admin/create-doctors" method="post">
     <label for="role">Specialty:</label>
     <select id="role" name="role">
         <option value="DENTIST">DENTIST</option>
@@ -25,7 +25,6 @@
         <option value="ALLERGIST">ALLERGIST</option>
         <option value="ANESTHESIOLOGIST">ANESTHESIOLOGIST</option>
 
-        <!-- Add other specialties as needed -->
     </select><br><br>
 
     <label for="firstname">First Name:</label>
@@ -96,7 +95,7 @@
                     <td>
                         <button type="submit" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editEventModal${user.id}">Edit</button>
 
-                        <form action="${pageContext.request.contextPath}/auth/delete-doctor" method="post">
+                        <form action="${pageContext.request.contextPath}/admin/delete-doctor" method="post">
                             <input type="hidden" name="userId" value="${user.id}">
                             <button type="submit">Delete</button>
                         </form>
@@ -111,7 +110,7 @@
                                 <span class="navbar-text">${user.username}</span>
                             </div>
 
-                            <form action="${pageContext.request.contextPath}/auth/update-doctor" method="post">
+                            <form action="${pageContext.request.contextPath}/admin/update-doctor" method="post">
                                 <input type="hidden" name="userId" value="${user.id}">
                                 <div class="modal-body">
                                     <div class="form-group">
