@@ -92,6 +92,8 @@ public class AppointmentController {
         return "available-days";
     }
 
+
+
     @RequestMapping("select-day")
     public String showTimeSlotsPage(@RequestParam("doctorId") UUID doctorId, @RequestParam("date") LocalDate date, Model model, HttpSession session) {
         List<TimeSlot> timeSlots = service.getAvailableTimeSlots(doctorId, date);
@@ -113,12 +115,24 @@ public class AppointmentController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createAppointment(@RequestParam("start") String startStr, @RequestParam("end") String endStr,
-                                    HttpSession session) {
+                                    HttpSession session , Model model) {
 
         User doctor = userService.findById((UUID) session.getAttribute("doctorId"));
         LocalDate date = (LocalDate) session.getAttribute("date");
 
         User user = (User) session.getAttribute("user");
+
+        if(user.getBalance() < 0){
+            model.addAttribute("message", "you have not enough balance");
+            return "balance";
+        }
+
+        user.setBalance(user.getBalance() - 10000);
+        userService.update(user);
+        if(user.getBalance() < 0){
+            model.addAttribute("message", "you have not enough money");
+            return "balance";
+        }
 
         LocalTime start = LocalTime.parse(startStr);
         LocalTime end = LocalTime.parse(endStr);
