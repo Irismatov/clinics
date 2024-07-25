@@ -1,5 +1,6 @@
 package uz.pdp.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
@@ -16,9 +17,11 @@ import java.util.UUID;
 @Service
 public class AppointmentService extends BaseService<Appointment, AppointmentRepository>{
 
+    @Autowired
     public AppointmentService(AppointmentRepository appointmentRepository) {
         repository = appointmentRepository;
     }
+
 
     public List<Appointment> getUserAppointments(User patient) {
         return repository.getAllUserAppointments(patient.getId());
