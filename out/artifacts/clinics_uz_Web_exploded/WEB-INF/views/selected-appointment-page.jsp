@@ -9,7 +9,7 @@
             top: 10px;
             right: 10px;
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #4CAF50; /* Зеленый цвет */
             color: white;
             border: none;
             cursor: pointer;
@@ -17,7 +17,7 @@
         }
 
         .top-right-button:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Темнее при наведении */
         }
 
         .appointment-table {
@@ -45,6 +45,20 @@
         .hidden {
             display: none;
         }
+
+        createDiagnosisButton {
+              padding: 10px 20px;
+              background-color: #4CAF50; /* Green background */
+              color: white; /* White text */
+              border: none;
+              cursor: pointer;
+              border-radius: 5px; /* Rounded corners */
+              margin-top: 20px; /* Space above the button */
+          }
+
+        createDiagnosisButton:hover {
+              background-color: #45a049; /* Darker green on hover */
+          }
 
         .disabled-button {
             background-color: #ccc;

@@ -13,7 +13,8 @@ import uz.pdp.entity.User;
 import uz.pdp.service.AppointmentService;
 import uz.pdp.service.UserService;
 
-import java.util.List;
+import java.time.ZoneId;
+import java.util.*;
 
 @AllArgsConstructor
 @Controller
@@ -32,27 +33,53 @@ public class DiagnoseController {
         List<Appointment> appointments = service
                 .findAcceptedAppointmentsByDoctor((User) session.getAttribute("user"));
         model.addAttribute("appointments", appointments);
+        List<Map<String, Object>> formattedAppointments = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            Map<String, Object> appointmentData = new HashMap<>();
+            appointmentData.put("patientFirstname", appointment.getPatient().getFirstname());
+            appointmentData.put("patientLastname", appointment.getPatient().getLastname());
+            appointmentData.put("startTime", Date.from(appointment.getStartTime().atZone(ZoneId.systemDefault()).toInstant()));
+            appointmentData.put("endTime", Date.from(appointment.getEndTime().atZone(ZoneId.systemDefault()).toInstant()));
+            appointmentData.put("id", appointment.getId()); // Если понадобится id для формы
+            formattedAppointments.add(appointmentData);
+        }
+
+        model.addAttribute("appointments", formattedAppointments);
         return "accepted-requests";
     }
 
     @RequestMapping(value = "/show", method = RequestMethod.POST)
     public String showAcceptedRequests(Model model, HttpSession session) {
-        List<Appointment> appointments = service
-                .findAcceptedAppointmentsByDoctor((User) session.getAttribute("user"));
-        model.addAttribute("appointments", appointments);
+        List<Appointment> appointments = service.findAcceptedAppointmentsByDoctor((User) session.getAttribute("user"));
+        List<Map<String, Object>> formattedAppointments = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            Map<String, Object> appointmentData = new HashMap<>();
+            appointmentData.put("patientFirstname", appointment.getPatient().getFirstname());
+            appointmentData.put("patientLastname", appointment.getPatient().getLastname());
+            appointmentData.put("startTime", Date.from(appointment.getStartTime().atZone(ZoneId.systemDefault()).toInstant()));
+            appointmentData.put("endTime", Date.from(appointment.getEndTime().atZone(ZoneId.systemDefault()).toInstant()));
+            formattedAppointments.add(appointmentData);
+        }
+        model.addAttribute("appointments", formattedAppointments);
         return "accepted-requests";
     }
 
 
+
     @RequestMapping("/selected-appointment")
-    public String showSelectedAppointmentPage(@RequestParam("appointment") Appointment selectedAppointment, Model model, HttpSession session) {
-        model.addAttribute("appointment", selectedAppointment);
+    public String showSelectedAppointmentPage(@RequestParam("appointmentId") UUID selectedAppointmentId, Model model, HttpSession session) {
+        Appointment byId = service.findById(selectedAppointmentId);
+        model.addAttribute("appointment", byId);
         return "selected-appointment-page";
     }
 
+
     @RequestMapping(value = "/selected-appointment", method = RequestMethod.POST)
-    public String showSelectedAppointment(@RequestParam("appointment") Appointment selectedAppointment,Model model, HttpSession session) {
-        model.addAttribute("appointment", selectedAppointment);
+    public String showSelectedAppointment(@RequestParam("appointmentId") UUID selectedAppointmentId,Model model, HttpSession session) {
+        Appointment byId = service.findById(selectedAppointmentId);
+        model.addAttribute("appointment", byId);
         return "selected-appointment-page";
     }
 
