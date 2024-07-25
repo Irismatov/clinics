@@ -51,6 +51,10 @@
     <button class="button">
         <a href="${pageContext.request.contextPath}/auth/balance">Balance</a>
     </button>
+
+    <button class="button">
+        <a href="${pageContext.request.contextPath}/user-profile">My Profile</a>
+    </button>
 </div>
 
 </body>
