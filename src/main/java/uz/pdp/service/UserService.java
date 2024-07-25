@@ -56,4 +56,28 @@ public class UserService extends BaseService<User, UserRepository>{
         return user;
     }
 
+
+    public User updateUser(User user) {
+        try {
+            User byId = super.findById(user.getId());
+
+            byId.setId(user.getId());
+            byId.setFirstname(user.getFirstname());
+            byId.setLastname(user.getLastname());
+            byId.setUsername(user.getUsername());
+            byId.setPassword(user.getPassword());
+            byId.setEmail(user.getEmail());
+            byId.setGender(user.getGender());
+            byId.setAge(user.getAge());
+            byId.setAddress(user.getAddress());
+            byId.setPhoneNumber(user.getPhoneNumber());
+            super.update(byId);
+
+            return byId;
+            //return super.findById(byId.getId());
+        } catch (Exception e) {
+            throw new RuntimeException("User update failed");
+        }
+    }
+
 }
