@@ -24,6 +24,8 @@
         <option value="GASTROENTEROLOGIST">GASTROENTEROLOGIST</option>
         <option value="ALLERGIST">ALLERGIST</option>
         <option value="ANESTHESIOLOGIST">ANESTHESIOLOGIST</option>
+        <option value="ANESTHESIOLOGIST">ANESTHESIOLOGIST</option>
+        <option value="ADMINISTRATOR">ADMINISTRATOR</option>
 
         <!-- Add other specialties as needed -->
     </select><br><br>
@@ -130,6 +132,7 @@
                                             <option value="ANESTHESIOLOGIST" ${user.role == 'ANESTHESIOLOGIST' ? 'selected' : ''}>Anesthesiologist</option>
                                             <option value="GASTROENTEROLOGIST" ${user.role == 'GASTROENTEROLOGIST' ? 'selected' : ''}>Gastroenterologist</option>
                                             <option value="ALLERGIST" ${user.role == 'ALLERGIST' ? 'selected' : ''}>Allergist</option>
+                                            <option value="ADMINISTRATOR" ${user.role == 'ADMINISTRATOR' ? 'selected' : ''}>Administrator</option>
                                         </select>
 
                                     </div>
