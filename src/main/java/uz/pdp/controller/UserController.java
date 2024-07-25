@@ -30,6 +30,8 @@ public class UserController {
             user.setId(((User) session.getAttribute("user")).getId());
             User res = userService.updateUser(user);
             model.addAttribute("user", res);
+            session.setAttribute("user", res);
+
         } catch (Exception e) {
             model.addAttribute("message", e.getMessage());
             return "my-profile";
