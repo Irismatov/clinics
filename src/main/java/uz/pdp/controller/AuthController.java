@@ -42,12 +42,13 @@ public class AuthController {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session) {
+    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session, Model model) {
         User userEntity = userService.signIn(loginDto.username(), loginDto.password());
         session.setAttribute("user", userEntity);
         if (userEntity.getRole() == UserRole.PATIENT) {
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
+            model.addAttribute("users", userService.getAllDoctors());
             return "admin-page";
         }else if(Objects.nonNull(userEntity.getRole())) {
             return "doctor-page";
