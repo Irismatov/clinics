@@ -80,8 +80,11 @@ public class AuthController {
         if (userEntity.getRole() == UserRole.PATIENT) {
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
+            model.addAttribute("users", userService.getAllDoctors());
             return "admin-page";
-        }else if(userEntity.getRole() != null) {
+        }else if(userEntity.getRole() == UserRole.ADMINISTRATOR){
+            return "patient-page";
+        } else if(userEntity.getRole() != null) {
             return "doctor-page";
         }
         model.addAttribute("error", "Username or password incorrect");
