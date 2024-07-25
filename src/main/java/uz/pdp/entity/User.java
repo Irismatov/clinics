@@ -28,5 +28,6 @@ public class User extends BaseEntity {
     private String gender;
     private String phoneNumber;
     private String address;
+    private double balance;
 }
 

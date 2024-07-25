@@ -4,6 +4,7 @@ package uz.pdp.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
@@ -28,6 +29,17 @@ public class UserRepository extends BaseRepository<User> {
                 .getResultList();
     }
 
+
+    @Transactional
+    public User save(User entity){
+        if(entityManager.contains(entity)){
+            return null;
+        }
+        entity.setBalance(100000.0);
+        entityManager.persist(entity);
+        return entity;
+    };
+
     public boolean checkMail(String email, String currentUsername) {
         try {
             entityManager.createQuery("from User where email =:email or username =:currentUsername", User.class)
@@ -42,11 +54,15 @@ public class UserRepository extends BaseRepository<User> {
 
 
     public User signIn(String username, String password) {
-        return entityManager.createQuery("select u from User u where u.username =:username and " +
-                        "u.password =:password", type)
-                .setParameter("username", username)
-                .setParameter("password", password)
-                .getSingleResult();
+        try {
+            return entityManager.createQuery("select u from User u where u.username =:username and " +
+                            "u.password =:password", type)
+                    .setParameter("username", username)
+                    .setParameter("password", password)
+                    .getSingleResult();
+        }catch (Exception e){
+            return new User();
+        }
     }
 
 

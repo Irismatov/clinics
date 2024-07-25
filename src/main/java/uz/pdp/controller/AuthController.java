@@ -39,10 +39,42 @@ public class AuthController {
         return "register";
     }
 
+    @RequestMapping("/balance")
+    public String balancePage(Model model, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("balance", user.getBalance());
+        return "balance";
+    }
+
+    @RequestMapping("/back-balance")
+    public String backBalancePage(Model model, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        model.addAttribute("user", user);
+        model.addAttribute("balance", user.getBalance());
+        return "patient-page";
+    }
+
+    @PostMapping("add-balance")
+    public String addBalance(@RequestParam(name = "amount") double amount, Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if(amount <= 0){
+            model.addAttribute("message", "Amount must be greater than 0");
+            model.addAttribute("balance", user.getBalance());
+            return "balance";
+        }
+
+        user.setBalance(user.getBalance() + amount);
+        userService.update(user);
+        model.addAttribute("balance", user.getBalance());
+        return "balance";
+    }
+
+
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session) {
+    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session, Model model) {
         User userEntity = userService.signIn(loginDto.username(), loginDto.password());
         session.setAttribute("user", userEntity);
         if (userEntity.getRole() == UserRole.PATIENT) {
@@ -52,16 +84,10 @@ public class AuthController {
         }else if(Objects.nonNull(userEntity.getRole())) {
             return "doctor-page";
         }
+        model.addAttribute("error", "Username or password incorrect");
         return "login";
     }
 
-
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public String Register(@ModelAttribute User userEntity, HttpSession session) {
-//        User user = userService.save(userEntity);
-//        session.setAttribute("user", user);
-//        return "login";
-//    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
