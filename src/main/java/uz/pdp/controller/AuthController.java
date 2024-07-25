@@ -81,7 +81,7 @@ public class AuthController {
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
             return "admin-page";
-        }else if(Objects.nonNull(userEntity.getRole())) {
+        }else if(userEntity.getRole()!=null) {
             return "doctor-page";
         }
         model.addAttribute("error", "Username or password incorrect");
@@ -89,17 +89,6 @@ public class AuthController {
     }
 
 
-<<<<<<< HEAD
-   /* @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String Register(@ModelAttribute User userEntity, HttpSession session) {
-        // sign in logica
-        User user = userService.save(userEntity);
-        session.setAttribute("user", user);
-        return "login";
-    }*/
-
-=======
->>>>>>> 32f844e072c5ccc194dc2b4a87a1956f9d3f9bc3
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
         if (userService.checkMail(registerDTO.getEmail(), registerDTO.getUsername())) {

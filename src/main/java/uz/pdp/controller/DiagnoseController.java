@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uz.pdp.entity.Appointment;
+import uz.pdp.entity.Diagnose;
+import uz.pdp.entity.Prescription;
 import uz.pdp.entity.User;
 import uz.pdp.service.AppointmentService;
+import uz.pdp.service.DiagnoseService;
 import uz.pdp.service.UserService;
 
 import java.time.ZoneId;
@@ -25,7 +28,7 @@ public class DiagnoseController {
     private final AppointmentService service;
 
     @Autowired
-    private final UserService userService;
+    private final DiagnoseService diagnoseService;
 
 
     @RequestMapping("/show")
@@ -82,5 +85,44 @@ public class DiagnoseController {
         model.addAttribute("appointment", byId);
         return "selected-appointment-page";
     }
+
+    @RequestMapping("/createDiagnosis")
+    public String newAppointmentPage() {
+        return "doctor-page";
+    }
+
+    @RequestMapping(value = "/createDiagnosis", method = RequestMethod.POST)
+    public String newAppointment(@RequestParam("appointmentId") UUID appointmentId,
+                                 @RequestParam("diagnosisDescription") String diagnosisDescription,
+                                 @RequestParam("hospitalization") boolean hospitalization,
+                                 @RequestParam(value = "medicine", required = false) List<String> medicines,
+                                 @RequestParam(value = "dosage", required = false) List<String> dosages,
+                                 @RequestParam(value = "duration", required = false) List<String> durations) {
+
+        Appointment appointment = service.findById(appointmentId);
+
+        Diagnose diagnose = new Diagnose();
+        diagnose.setAppointment(appointment);
+        diagnose.setDescription(diagnosisDescription);
+        diagnose.setHospitalization(hospitalization);
+
+        if (medicines != null && dosages != null && durations != null) {
+            List<Prescription> prescriptions = new ArrayList<>();
+            for (int i = 0; i < medicines.size(); i++) {
+                Prescription prescription = new Prescription();
+                prescription.setDiagnose(diagnose);
+                prescription.setMedicine(medicines.get(i));
+                prescription.setDosage(dosages.get(i));
+                prescription.setDuration(durations.get(i));
+                prescriptions.add(prescription);
+            }
+            diagnose.setPrescriptions(prescriptions);
+        }
+         diagnoseService.save(diagnose);
+
+        return "doctor-page";
+    }
+
+
 
 }

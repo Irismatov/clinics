@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="online_hospital@localhost" uuid="ed6902f0-5f3c-4f57-a762-052a2ccd0c93">
+    <data-source source="LOCAL" name="clinic_db@localhost" uuid="40128838-3a89-4d06-80f8-8f763a52c66a">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/online_hospital</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/clinic_db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
