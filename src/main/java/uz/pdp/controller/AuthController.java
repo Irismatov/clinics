@@ -56,13 +56,6 @@ public class AuthController {
     }
 
 
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public String Register(@ModelAttribute User userEntity, HttpSession session) {
-//        User user = userService.save(userEntity);
-//        session.setAttribute("user", user);
-//        return "login";
-//    }
-
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
         if (userService.checkMail(registerDTO.getEmail(), registerDTO.getUsername())) {
