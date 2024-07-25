@@ -20,6 +20,7 @@ public class UserRepository extends BaseRepository<User> {
     }
 
 
+
     @PersistenceContext
     private EntityManager entityManager;
 
