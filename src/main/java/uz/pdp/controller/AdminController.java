@@ -5,12 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.DTO.LoginDTO;
-import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
-import uz.pdp.enumerators.UserRole;
 import uz.pdp.service.UserService;
-import uz.pdp.service.VerificationService;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
