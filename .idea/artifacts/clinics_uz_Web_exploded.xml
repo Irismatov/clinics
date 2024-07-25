@@ -48,11 +48,16 @@
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.7.2" />
           <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.42.0" />
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.34" />
-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.30" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.11" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.11" />
+          <element id="library" level="project" name="Maven: com.itextpdf:kernel:7.1.15" />
+          <element id="library" level="project" name="Maven: com.itextpdf:layout:7.1.15" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.68" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.68" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:2.1.0-alpha1" />
+          <element id="library" level="project" name="Maven: com.itextpdf:io:7.1.15" />
         </element>
       </element>
     </root>
