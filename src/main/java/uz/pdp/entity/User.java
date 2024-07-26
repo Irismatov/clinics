@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import uz.pdp.enumerators.UserRole;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,5 +30,9 @@ public class User extends BaseEntity {
     private String gender;
     private String phoneNumber;
     private String address;
+
+    @OneToMany(mappedBy = "patient",fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private List<Appointment> appointments;
+
 }
 
