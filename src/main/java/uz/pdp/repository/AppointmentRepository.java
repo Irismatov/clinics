@@ -53,12 +53,19 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
                 .getResultList();
     }
 
+    public List<Appointment> findAppointmentRequestsOfDoctor(UUID doctorId) {
+        return entityManager.createQuery("from Appointment where doctor.id = :doctorId and status IN (:statuses)", Appointment.class)
+                .setParameter("doctorId", doctorId)
+                .setParameter("statuses", EnumSet.of(AppointmentStatus.BOOKED))
+                .getResultList();
+    }
+
     public List<Appointment> findAcceptedAppointmentsByDoctor(UUID doctorId) {
         Query query = entityManager.createQuery("SELECT a FROM Appointment a WHERE a.doctor.id = :doctor_id" +
-             //   " and a.status = :desired_status" +
+                " and a.status = :desired_status" +
                 " and a.endTime >= :current_time", Appointment.class);
         query.setParameter("doctor_id", doctorId);
-       // query.setParameter("desired_status", AppointmentStatus.ACCEPTED);
+        query.setParameter("desired_status", AppointmentStatus.ACCEPTED);
         query.setParameter("current_time", LocalDateTime.now());
         return query.getResultList();
     }

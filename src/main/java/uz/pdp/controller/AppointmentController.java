@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import uz.pdp.DTO.AppointmentRequestDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +15,9 @@ import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.AppointmentStatus;
+import uz.pdp.repository.UserRepository;
 import uz.pdp.service.AppointmentService;
+import uz.pdp.service.MessageService;
 import uz.pdp.service.UserService;
 
 import java.time.LocalDate;
@@ -34,6 +38,12 @@ public class AppointmentController {
 
     @Autowired
     private final UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private AppointmentService appointmentService;
+    @Autowired
+    private MessageService messageService;
 
 //    @GetMapping()
 //    public String appointment(Model model) {
@@ -157,5 +167,27 @@ public class AppointmentController {
                 .build());
 
         return "doctor-specialties";
+    }
+
+
+    @RequestMapping(value = "/requests")
+    public String showRequests(HttpSession session, Model model) {
+        User doctor = (User) session.getAttribute("user");
+        List<AppointmentRequestDTO> appointmentRequests = appointmentService.findAppointmentRequests(doctor.getId());
+        model.addAttribute("appointmentRequests", appointmentRequests);
+        return "doctor-appointment-requests";
+    }
+
+    @RequestMapping(value = "/requests", method = RequestMethod.POST)
+    public String updateAppointment(@RequestParam("appointment_id") UUID appointmentRequestId, @RequestParam("action") String action, @RequestParam(value = "reason", required = false) String reason ,Model model, HttpSession session) {
+        User doctor = (User) session.getAttribute("user");
+        if (action.equals("1")) {
+            appointmentService.updateAppointmentRequest(appointmentRequestId, true);
+        } else {
+            messageService.save(doctor.getId(), appointmentService.findById(appointmentRequestId).getPatient().getId(), reason);
+        }
+        List<AppointmentRequestDTO> appointmentRequests = appointmentService.findAppointmentRequests(doctor.getId());
+        model.addAttribute("appointmentRequests", appointmentRequests);
+        return "doctor-appointment-requests";
     }
 }
