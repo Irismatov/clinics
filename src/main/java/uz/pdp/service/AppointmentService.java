@@ -6,7 +6,6 @@ import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
 import uz.pdp.repository.AppointmentRepository;
-import uz.pdp.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,6 +21,7 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
     public AppointmentService(AppointmentRepository appointmentRepository) {
         repository = appointmentRepository;
     }
+
 
     public List<Appointment> getUserAppointments(User patient) {
         return repository.getAllUserAppointments(patient.getId());

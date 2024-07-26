@@ -68,10 +68,11 @@ public class UserRepository extends BaseRepository<User> {
 
     public List<User> getDoctors(){
         return entityManager.createQuery(
-                        "SELECT e FROM User e WHERE e.role IN (:roles)", User.class)
-                .setParameter("roles", List.of("DENTIST", "SURGEON","GENERAL_PRACTITIONER","NEUROLOGIST"))
+                        "SELECT e FROM User e WHERE e.role NOT IN (:excludedRoles)", User.class)
+                .setParameter("excludedRoles", List.of("MAIN_DOCTOR","PATIENT", "ADMINISTRATOR"))
                 .getResultList();
     }
+
 
     public List<User> getAllDoctors(UserRole specialties) {
         Query query = entityManager.createQuery("select u from User u where u.role = : special", User.class);
