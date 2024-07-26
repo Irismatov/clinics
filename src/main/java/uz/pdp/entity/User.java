@@ -30,13 +30,7 @@ public class User extends BaseEntity {
     private String gender;
     private String phoneNumber;
     private String address;
-<<<<<<< HEAD
 
-    @OneToMany(mappedBy = "patient",fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    private List<Appointment> appointments;
-
-=======
     private double balance;
->>>>>>> 2ed8015203e0812a975f931524d43aacd307baef
 }
 

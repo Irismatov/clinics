@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-<<<<<<< HEAD
-Built-By: 1
-Build-Jdk: Oracle OpenJDK 21.0.2
-=======
-Built-By: Lenovo
-Build-Jdk: 21.0.2
->>>>>>> 8454464efc95348908d8c5c59567a36b4e95a549
+Built-By: lokin
+Build-Jdk: Oracle OpenJDK version 21.0.2
 

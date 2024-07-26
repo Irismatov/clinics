@@ -5,15 +5,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.DTO.AppointmentRequestDTO;
-=======
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
->>>>>>> 2ed8015203e0812a975f931524d43aacd307baef
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
