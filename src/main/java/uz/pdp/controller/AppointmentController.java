@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
@@ -33,6 +34,13 @@ public class AppointmentController {
 
     @Autowired
     private final UserService userService;
+
+//    @GetMapping()
+//    public String appointment(Model model) {
+//
+//    }
+
+
 
     @RequestMapping("/show")
     public String showPage(Model model, HttpSession session) {
