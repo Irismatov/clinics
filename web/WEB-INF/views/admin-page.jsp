@@ -8,15 +8,23 @@
 </head>
 <body>
 <h2>Create Doctor</h2>
-<form action="${pageContext.request.contextPath}/auth/create-doctors" method="post">
+<form action="${pageContext.request.contextPath}/admin/create-doctors" method="post">
     <label for="role">Specialty:</label>
     <select id="role" name="role">
         <option value="DENTIST">DENTIST</option>
         <option value="SURGEON">SURGEON</option>
         <option value="NEUROLOGIST">NEUROLOGIST</option>
         <option value="GENERAL_PRACTITIONER">GENERAL_PRACTITIONER</option>
-        <option value="SURGEON">I_AM_BATMAN</option>
-        <!-- Add other specialties as needed -->
+        <option value="THERAPIST">THERAPIST</option>
+        <option value="PEDIATRICIAN">PEDIATRICIAN</option>
+        <option value="OTOLARYNGOLOGY">OTOLARYNGOLOGY</option>
+        <option value="CARDIOLOGIST">CARDIOLOGIST</option>
+        <option value="RHEUMATOLOGIST">RHEUMATOLOGIST</option>
+        <option value="ENDOCRINOLOGIST">ENDOCRINOLOGIST</option>
+        <option value="GASTROENTEROLOGIST">GASTROENTEROLOGIST</option>
+        <option value="ALLERGIST">ALLERGIST</option>
+        <option value="ANESTHESIOLOGIST">ANESTHESIOLOGIST</option>
+
     </select><br><br>
 
     <label for="firstname">First Name:</label>
@@ -87,7 +95,7 @@
                     <td>
                         <button type="submit" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editEventModal${user.id}">Edit</button>
 
-                        <form action="${pageContext.request.contextPath}/auth/delete-doctor" method="post">
+                        <form action="${pageContext.request.contextPath}/admin/delete-doctor" method="post">
                             <input type="hidden" name="userId" value="${user.id}">
                             <button type="submit">Delete</button>
                         </form>
@@ -102,7 +110,7 @@
                                 <span class="navbar-text">${user.username}</span>
                             </div>
 
-                            <form action="${pageContext.request.contextPath}/auth/update-doctor" method="post">
+                            <form action="${pageContext.request.contextPath}/admin/update-doctor" method="post">
                                 <input type="hidden" name="userId" value="${user.id}">
                                 <div class="modal-body">
                                     <div class="form-group">
@@ -112,8 +120,17 @@
                                             <option value="SURGEON" ${user.role == 'SURGEON' ? 'selected' : ''}>Surgeon</option>
                                             <option value="NEUROLOGIST" ${user.role == 'NEUROLOGIST' ? 'selected' : ''}>Neurologist</option>
                                             <option value="GENERAL_PRACTITIONER" ${user.role == 'GENERAL_PRACTITIONER' ? 'selected' : ''}>General Practitioner</option>
-                                            <option value="SURGEON" ${user.role == 'SURGEON' ? 'selected' : ''}>I am Batman</option>
+                                            <option value="THERAPIST" ${user.role == 'THERAPIST' ? 'selected' : ''}>Therapist</option>
+                                            <option value="PEDIATRICIAN" ${user.role == 'PEDIATRICIAN' ? 'selected' : ''}>Pediatrician</option>
+                                            <option value="OTOLARYNGOLOGY" ${user.role == 'OTOLARYNGOLOGY' ? 'selected' : ''}>Otolaryngology</option>
+                                            <option value="CARDIOLOGIST" ${user.role == 'CARDIOLOGIST' ? 'selected' : ''}>Cardiologist</option>
+                                            <option value="RHEUMATOLOGIST" ${user.role == 'RHEUMATOLOGIST' ? 'selected' : ''}>Rheumatologist</option>
+                                            <option value="ENDOCRINOLOGIST" ${user.role == 'ENDOCRINOLOGIST' ? 'selected' : ''}>Endocrinologist</option>
+                                            <option value="ANESTHESIOLOGIST" ${user.role == 'ANESTHESIOLOGIST' ? 'selected' : ''}>Anesthesiologist</option>
+                                            <option value="GASTROENTEROLOGIST" ${user.role == 'GASTROENTEROLOGIST' ? 'selected' : ''}>Gastroenterologist</option>
+                                            <option value="ALLERGIST" ${user.role == 'ALLERGIST' ? 'selected' : ''}>Allergist</option>
                                         </select>
+
                                     </div>
 
                                     <div class="form-group">

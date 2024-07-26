@@ -15,7 +15,6 @@ import uz.pdp.util.Utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/test-download")
