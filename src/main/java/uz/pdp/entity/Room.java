@@ -13,7 +13,8 @@ import lombok.*;
 @Entity
 @Table(name = "rooms")
 public class Room extends BaseEntity {
-    private String number;
-    private String floor;
-    private String beds;
+    private String name;
+    private Integer number;
+    private Integer floor;
+    private Integer beds;
 }

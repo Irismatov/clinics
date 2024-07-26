@@ -40,7 +40,7 @@ public class UserService extends BaseService<User, UserRepository>{
     }
 
     public User registerDto(RegisterDTO registerDTO) {
-        User user = User.builder()
+         User user = User.builder()
                 .age(registerDTO.getAge())
                 .address(registerDTO.getAddress())
                 .email(registerDTO.getEmail())
