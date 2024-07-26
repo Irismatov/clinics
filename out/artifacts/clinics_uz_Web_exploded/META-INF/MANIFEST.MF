@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-<<<<<<< HEAD
 Built-By: 1
 Build-Jdk: Oracle OpenJDK 21.0.2
-=======
-Built-By: lokin
-Build-Jdk: Oracle OpenJDK version 21.0.2
->>>>>>> 32f844e072c5ccc194dc2b4a87a1956f9d3f9bc3
 
