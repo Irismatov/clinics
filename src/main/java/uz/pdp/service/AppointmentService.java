@@ -18,12 +18,24 @@ import java.util.UUID;
 @Service
 public class AppointmentService extends BaseService<Appointment, AppointmentRepository>{
 
+<<<<<<< HEAD
     private final UserService userService;
 
     @Autowired
     public AppointmentService(AppointmentRepository repository, UserService userService) {
         super(repository);
         this.userService = userService;
+=======
+
+    @Autowired
+    public AppointmentService(AppointmentRepository appointmentRepository) {
+        repository = appointmentRepository;
+    }
+
+
+    public List<Appointment> getUserAppointments(User patient) {
+        return repository.getAllUserAppointments(patient.getId());
+>>>>>>> 2ed8015203e0812a975f931524d43aacd307baef
     }
 
     public List<TimeSlot> getAvailableTimeSlots(UUID doctorId, LocalDate date) {
@@ -72,7 +84,6 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
     }
 
 
-
     private List<TimeSlot> createTimeSlots(LocalTime start, LocalTime end, int intervalMinutes, int breakMinutes) {
         List<TimeSlot> timeSlots = new ArrayList<>();
         LocalTime current = start;
@@ -92,6 +103,7 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
         return timeSlots;
     }
 
+<<<<<<< HEAD
     public void updateAppointmentRequest(UUID appointmentRequestId , boolean isAccepted) {
         Appointment appointment = repository.findById(appointmentRequestId);
         if (isAccepted) {
@@ -101,6 +113,10 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
             appointment.setStatus(AppointmentStatus.CANCELLED);
         }
         repository.update(appointment);
+=======
+    public List<Appointment> findAcceptedAppointmentsByDoctor(User doctor) {
+        return repository.findAcceptedAppointmentsByDoctor(doctor.getId());
+>>>>>>> 2ed8015203e0812a975f931524d43aacd307baef
     }
 
 }

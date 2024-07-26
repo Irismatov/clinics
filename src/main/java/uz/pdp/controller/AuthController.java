@@ -12,10 +12,6 @@ import uz.pdp.enumerators.UserRole;
 import uz.pdp.service.UserService;
 import uz.pdp.service.VerificationService;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.UUID;
-
 @Controller
 @RequestMapping("/auth")
 //@Setter
@@ -40,28 +36,22 @@ public class AuthController {
     }
 
 
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session) {
+    public String login(@ModelAttribute LoginDTO loginDto, HttpSession session, Model model) {
         User userEntity = userService.signIn(loginDto.username(), loginDto.password());
         session.setAttribute("user", userEntity);
         if (userEntity.getRole() == UserRole.PATIENT) {
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
+            model.addAttribute("users", userService.getAllDoctors());
             return "admin-page";
-        }else if(Objects.nonNull(userEntity.getRole())) {
+        }else if(userEntity.getRole()!=null) {
             return "doctor-page";
         }
+        model.addAttribute("error", "Username or password incorrect");
         return "login";
     }
 
-
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public String Register(@ModelAttribute User userEntity, HttpSession session) {
-//        User user = userService.save(userEntity);
-//        session.setAttribute("user", user);
-//        return "login";
-//    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String Register(@ModelAttribute RegisterDTO registerDTO, Model model, HttpSession session) {
@@ -104,39 +94,5 @@ public class AuthController {
         return "registration-code";
 
     }
-
-
-    @PostMapping("/create-doctors")
-    public String create(@ModelAttribute User userEntity, Model model , HttpSession session) {
-        userEntity.setCreatedAt(LocalDateTime.now());
-        userEntity.setUpdatedAt(LocalDateTime.now());
-        userService.save(userEntity);
-        model.addAttribute("users", userService.getAllDoctors());
-        return "admin-page";
-    }
-
-
-    @GetMapping("create" )
-    public String create(Model model) {
-        model.addAttribute("users", userService.getAllDoctors());
-        return "auth/create";
-    }
-
-    @RequestMapping("/delete-doctor")
-    public String delete(@RequestParam(name = "userId") UUID userId, Model model) {
-        userService.delete(userId);
-        model.addAttribute("users", userService.getAllDoctors());
-        return "admin-page";
-   }
-
-    @RequestMapping(value = "/update-doctor", method = RequestMethod.POST)
-    public String update(@RequestParam(name = "userId") UUID userID , @ModelAttribute User updatedUser, Model model) {
-        updatedUser.setId(userID);
-        userService.update(updatedUser);
-        model.addAttribute("message", "Doctor updated successfully");
-        model.addAttribute("users", userService.getAllDoctors());
-        return "admin-page";
-    }
-
 
 }

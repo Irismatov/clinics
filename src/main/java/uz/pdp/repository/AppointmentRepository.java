@@ -1,13 +1,14 @@
 package uz.pdp.repository;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.Appointment;
 import uz.pdp.enumerators.AppointmentStatus;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -15,9 +16,11 @@ import java.util.UUID;
 
 @Repository
 public class AppointmentRepository extends BaseRepository<Appointment> {
+
     public AppointmentRepository() {
         this.type = Appointment.class;
     }
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -45,16 +48,28 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
     }
 
     public List<Appointment> findAppointmentsByUser(UUID userId) {
-
         return entityManager.createQuery("from Appointment where patient.id = :userId", Appointment.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }
 
+<<<<<<< HEAD
     public List<Appointment> findAppointmentRequestsOfDoctor(UUID doctorId) {
         return entityManager.createQuery("from Appointment where doctor.id = :doctorId and status IN (:statuses)", Appointment.class)
                 .setParameter("doctorId", doctorId)
                 .setParameter("statuses", EnumSet.of(AppointmentStatus.BOOKED))
                 .getResultList();
     }
+=======
+    public List<Appointment> findAcceptedAppointmentsByDoctor(UUID doctorId) {
+        Query query = entityManager.createQuery("SELECT a FROM Appointment a WHERE a.doctor.id = :doctor_id" +
+             //   " and a.status = :desired_status" +
+                " and a.endTime >= :current_time", Appointment.class);
+        query.setParameter("doctor_id", doctorId);
+       // query.setParameter("desired_status", AppointmentStatus.ACCEPTED);
+        query.setParameter("current_time", LocalDateTime.now());
+        return query.getResultList();
+    }
+
+>>>>>>> 2ed8015203e0812a975f931524d43aacd307baef
 }

@@ -2,6 +2,7 @@ package uz.pdp.enumerators;
 
 public enum UserRole {
     MAIN_DOCTOR,
+    ADMINISTRATOR,
     THERAPIST,
     PEDIATRICIAN,
     OTOLARYNGOLOGY,

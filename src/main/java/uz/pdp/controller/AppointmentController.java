@@ -5,8 +5,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.DTO.AppointmentRequestDTO;
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 2ed8015203e0812a975f931524d43aacd307baef
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
@@ -40,6 +47,13 @@ public class AppointmentController {
     private AppointmentService appointmentService;
     @Autowired
     private MessageService messageService;
+
+//    @GetMapping()
+//    public String appointment(Model model) {
+//
+//    }
+
+
 
     @RequestMapping("/show")
     public String showPage(Model model, HttpSession session) {
@@ -93,10 +107,13 @@ public class AppointmentController {
         return "available-days";
     }
 
+
     @RequestMapping("/select-doctor")
     public String showTimeTablePage() {
         return "available-days";
     }
+
+
 
     @RequestMapping("select-day")
     public String showTimeSlotsPage(@RequestParam("doctorId") UUID doctorId, @RequestParam("date") LocalDate date, Model model, HttpSession session) {
@@ -106,6 +123,7 @@ public class AppointmentController {
         model.addAttribute("selectedDate", date);
         return "available-time-slots";
     }
+
 
     @RequestMapping(value = "/select-day", method = RequestMethod.POST)
     public String showTimeSlots(@RequestParam("doctorId") UUID doctorId, @RequestParam("date") LocalDate date, Model model) {
@@ -118,10 +136,24 @@ public class AppointmentController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createAppointment(@RequestParam("start") String startStr, @RequestParam("end") String endStr,
-                                    HttpSession session) {
+                                    HttpSession session , Model model) {
 
         User doctor = userService.findById((UUID) session.getAttribute("doctorId"));
         LocalDate date = (LocalDate) session.getAttribute("date");
+
+        User user = (User) session.getAttribute("user");
+
+        if(user.getBalance() < 0){
+            model.addAttribute("message", "you have not enough balance");
+            return "balance";
+        }
+
+        user.setBalance(user.getBalance() - 10000);
+        userService.update(user);
+        if(user.getBalance() < 0){
+            model.addAttribute("message", "you have not enough money");
+            return "balance";
+        }
 
         LocalTime start = LocalTime.parse(startStr);
         LocalTime end = LocalTime.parse(endStr);

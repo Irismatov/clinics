@@ -30,6 +30,7 @@ public class UserService extends BaseService<User, UserRepository>{
         return repository.getDoctors();
     }
 
+
     public List<User> getAllDoctorsBySpecialty(String specialties) {
         return repository.getAllDoctors(UserRole.valueOf(specialties));
     }
@@ -39,7 +40,7 @@ public class UserService extends BaseService<User, UserRepository>{
     }
 
     public User registerDto(RegisterDTO registerDTO) {
-        User user = User.builder()
+         User user = User.builder()
                 .age(registerDTO.getAge())
                 .address(registerDTO.getAddress())
                 .email(registerDTO.getEmail())
@@ -53,6 +54,30 @@ public class UserService extends BaseService<User, UserRepository>{
                 .build();
         save(user);
         return user;
+    }
+
+
+    public User updateUser(User user) {
+        try {
+            User byId = super.findById(user.getId());
+
+            byId.setId(user.getId());
+            byId.setFirstname(user.getFirstname());
+            byId.setLastname(user.getLastname());
+            byId.setUsername(user.getUsername());
+            byId.setPassword(user.getPassword());
+            byId.setEmail(user.getEmail());
+            byId.setGender(user.getGender());
+            byId.setAge(user.getAge());
+            byId.setAddress(user.getAddress());
+            byId.setPhoneNumber(user.getPhoneNumber());
+            super.update(byId);
+
+            return byId;
+            //return super.findById(byId.getId());
+        } catch (Exception e) {
+            throw new RuntimeException("User update failed");
+        }
     }
 
 }

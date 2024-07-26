@@ -21,51 +21,72 @@
     <form action="${pageContext.request.contextPath}/auth/register" method="post">
         <div class="form-row">
             <div class="input-data">
-                <input type="text" name="firstname" required>
+                <label for=>Enter Firstname</label>
+                <label>
+                    <input type="text" name="firstname" required>
+                </label>
                 <div class="underline"></div>
-                <label for=>firstname</label>
             </div>
             <div class="input-data">
-                <input type="text" name="lastname" required>
+                <label for=>Enter Lastname</label>
+                <label>
+                    <input type="text" name="lastname" required>
+                </label>
                 <div class="underline"></div>
-                <label for=>Lastname</label>
             </div>
             <div class="input-data">
-                <input type="text" name="username" required>
+                <label for=>Enter Username</label>
+                <label>
+                    <input type="text" name="username" required>
+                </label>
                 <div class="underline"></div>
-                <label for=>Username</label>
             </div>
             <div class="input-data">
-                <input type="password" name="password" required>
+                <label for=>Enter password</label>
+                <label>
+                    <input type="password" name="password" required>
+                </label>
                 <div class="underline"></div>
-                <label for=>password</label>
             </div>
         </div>
         <div class="form-row">
             <div class="input-data">
-                <input type="text" name="age" required>
+                <label for=>Enter Age</label>
+                <label>
+                    <input type="text" name="age" required>
+                </label>
                 <div class="underline"></div>
-                <label for=>Age</label>
             </div>
             <div class="input-data">
-                <input type="text" name="gender" required>
-                <div class="underline"></div>
                 <label for=>Gender</label>
+                <label>
+                    <select name="gender">
+                       <option value="MALE">MALE</option>
+                       <option value="FEMALE">FEMALE</option>
+                       <option value="OTHER">OTHER</option>
+                    </select>
+                </label>
             </div>
             <div class="input-data">
-                <input type="text" name="address" required>
-                <div class="underline"></div>
                 <label for=>Address</label>
+                <label>
+                    <input type="text" name="address" required>
+                </label>
+                <div class="underline"></div>
             </div>
             <div class="input-data">
-                <input type="text" name="phoneNumber" required>
-                <div class="underline"></div>
                 <label for=>phoneNumber</label>
+                <label>
+                    <input type="text" name="phoneNumber" required>
+                </label>
+                <div class="underline"></div>
             </div>
             <div class="input-data">
-                <input type="email" name="email" required>
-                <div class="underline"></div>
                 <label for=>Email</label>
+                <label>
+                    <input type="email" name="email" required>
+                </label>
+                <div class="underline"></div>
             </div>
 
 
