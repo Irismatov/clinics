@@ -1,11 +1,20 @@
 package uz.pdp.service;
+import jakarta.servlet.http.Part;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.repository.UserRepository;
 
+import javax.mail.Multipart;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -15,6 +24,8 @@ public class UserService extends BaseService<User, UserRepository>{
     public UserService(UserRepository userRepository) {
         repository = userRepository;
     }
+
+    private String picPath = "D:\\spring\\clinics\\web\\profilePics";
 
 
     public void test(){
@@ -71,6 +82,7 @@ public class UserService extends BaseService<User, UserRepository>{
             byId.setAge(user.getAge());
             byId.setAddress(user.getAddress());
             byId.setPhoneNumber(user.getPhoneNumber());
+            byId.setPicturePath(user.getPicturePath());
             super.update(byId);
 
             return byId;
@@ -80,4 +92,21 @@ public class UserService extends BaseService<User, UserRepository>{
         }
     }
 
+    public String savePic(MultipartFile file) {
+        String fileName = getFileName(file);
+        try {
+            Files.write(Path.of(picPath + "\\" + fileName ), file.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return fileName;
+    }
+
+    private String getFileName(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename != null && !originalFilename.isEmpty()) {
+            return originalFilename;
+        }
+        return "file-" + UUID.randomUUID();
+    }
 }

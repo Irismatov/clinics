@@ -32,5 +32,6 @@ public class User extends BaseEntity {
     private String address;
 
     private double balance;
+    private String picturePath;
 }
 
