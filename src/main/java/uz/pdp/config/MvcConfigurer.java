@@ -18,25 +18,29 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = "uz.pdp")
 @PropertySource(value = "classpath:app.properties")
 public class MvcConfigurer implements WebMvcConfigurer {
+
     @Bean
     public InternalResourceViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
         viewResolver.setViewClass(JstlView.class);
         return viewResolver;
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/profilPics/**", "/profilPics/");
+        registry.addResourceHandler("/profilePics/**")
+                .addResourceLocations("file:web/profilePics");
     }
 
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         return new MultipartConfigElement(
-                "D:\\spring\\clinics\\web\\profilePics",  // Temporary directory
+                "web/profilePics", // Temporary directory
                 20971520, // Max file size (20 MB)
-                41943040,
-                0
+                41943040, // Max request size (40 MB)
+                0         // File size threshold
         );
     }
 
