@@ -46,7 +46,7 @@ public class AuthController {
             model.addAttribute("users", userService.getAllDoctors());
             return "admin-page";
         }else if(userEntity.getRole() == UserRole.ADMINISTRATOR){
-            return "patient-page";
+            return "administrator-page";
         } else if(userEntity.getRole() != null) {
             return "doctor-page";
         }
