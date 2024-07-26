@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-<<<<<<< HEAD
-    <data-source source="LOCAL" name="clinic_db@localhost" uuid="40128838-3a89-4d06-80f8-8f763a52c66a">
-=======
-    <data-source source="LOCAL" name="online_hospital@localhost" uuid="21642de4-bb86-4b99-b4f5-a9ac9245cd78">
->>>>>>> 8454464efc95348908d8c5c59567a36b4e95a549
+    <data-source source="LOCAL" name="online_hospital@localhost" uuid="daaf0594-e5a7-413b-8ebe-137b90184170">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/clinic_db</jdbc-url>
-      <jdbc-additional-properties>
-        <property name="com.intellij.clouds.kubernetes.db.host.port" />
-        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
-        <property name="com.intellij.clouds.kubernetes.db.container.port" />
-      </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="clinicss" uuid="08356ace-0760-4113-985b-83264f2a19fa">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/clinics</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/online_hospital</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
