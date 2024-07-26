@@ -14,11 +14,8 @@ import uz.pdp.enumerators.MessageState;
 @Table(name = "messages")
 public class Message extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User patient;
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    private User doctor;
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
     private String text;
     @Enumerated(EnumType.STRING)
     MessageState messageState;

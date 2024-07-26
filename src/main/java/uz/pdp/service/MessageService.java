@@ -12,21 +12,27 @@ import java.util.UUID;
 @Service
 public class MessageService extends BaseService<Message, MessageRepository>{
 
-    private final UserService userService;
+    private final MessageRepository messageRepository;
+    private AppointmentService appointmentService;
 
-    public MessageService(MessageRepository repository, UserService userService) {
+    @Autowired
+    public MessageService(MessageRepository repository, AppointmentService appointmentService, MessageRepository messageRepository) {
         super(repository);
-        this.userService = userService;
+        this.appointmentService = appointmentService;
+        this.messageRepository = messageRepository;
     }
 
-    public Message save(UUID doctorId, UUID patientId, String text) {
+    public Message save(UUID appointmentId, String text) {
         return save(
                 Message.builder()
-                        .doctor(userService.findById(doctorId))
-                        .patient(userService.findById(patientId))
+                        .appointment(appointmentService.findById(appointmentId))
                         .messageState(MessageState.NEW)
                         .text(text)
                         .build()
         );
+    }
+
+    public Message findByAppointmentId(UUID appointmentId) {
+        return messageRepository.findMessageByAppointmentId(appointmentId);
     }
 }

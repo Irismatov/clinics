@@ -109,6 +109,7 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
             userService.updateUser(patient);
             appointment.setStatus(AppointmentStatus.CANCELLED);
         }
+        appointment.setPatientSeen(false);
         repository.update(appointment);
     }
     public List<Appointment> findAcceptedAppointmentsByDoctor(User doctor) {

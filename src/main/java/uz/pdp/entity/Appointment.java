@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "appointments")
 public class Appointment extends BaseEntity {
+
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private User doctor;
@@ -27,4 +28,18 @@ public class Appointment extends BaseEntity {
     private LocalDateTime endTime;
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
+    private boolean isDoctorSeen;
+    private boolean isPatientSeen;
+
+
+    @PrePersist
+    protected void onCreate() {
+        if (!isPatientSeen) {
+            isPatientSeen = true; // Ensure default value is true
+        }
+        if (!isDoctorSeen) {
+            isDoctorSeen = true;
+        }
+    }
+
 }

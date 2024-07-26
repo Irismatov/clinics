@@ -54,7 +54,7 @@
 <body>
 <div class="button-container">
     <button class="button">
-        <a href="${pageContext.request.contextPath}/requests">Incoming requests</a>
+        <a href="${pageContext.request.contextPath}/appointment/requests">Incoming requests</a>
     </button>
 
     <button class="button">

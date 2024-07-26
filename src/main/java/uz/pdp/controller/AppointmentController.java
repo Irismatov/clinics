@@ -184,7 +184,7 @@ public class AppointmentController {
         if (action.equals("1")) {
             appointmentService.updateAppointmentRequest(appointmentRequestId, true);
         } else {
-            messageService.save(doctor.getId(), appointmentService.findById(appointmentRequestId).getPatient().getId(), reason);
+            messageService.save(appointmentRequestId, reason);
         }
         List<AppointmentRequestDTO> appointmentRequests = appointmentService.findAppointmentRequests(doctor.getId());
         model.addAttribute("appointmentRequests", appointmentRequests);

@@ -9,6 +9,7 @@ import uz.pdp.DTO.LoginDTO;
 import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
+import uz.pdp.service.NotificationService;
 import uz.pdp.service.UserService;
 import uz.pdp.service.VerificationService;
 
@@ -23,6 +24,9 @@ public class AuthController {
 
     @Autowired
     private final VerificationService verificationService;
+
+    @Autowired
+    private final NotificationService notificationService;
 
     @RequestMapping("/login")
     public String loginPage() {
@@ -41,6 +45,7 @@ public class AuthController {
         User userEntity = userService.signIn(loginDto.username(), loginDto.password());
         session.setAttribute("user", userEntity);
         if (userEntity.getRole() == UserRole.PATIENT) {
+            model.addAttribute("notifications", notificationService.patientNotifications(userEntity.getId()));
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
             model.addAttribute("users", userService.getAllDoctors());
