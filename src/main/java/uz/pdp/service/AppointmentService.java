@@ -16,6 +16,7 @@ import java.util.UUID;
 @Service
 public class AppointmentService extends BaseService<Appointment, AppointmentRepository>{
 
+
     @Autowired
     public AppointmentService(AppointmentRepository appointmentRepository) {
         repository = appointmentRepository;
@@ -56,7 +57,6 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
     }
 
 
-
     private List<TimeSlot> createTimeSlots(LocalTime start, LocalTime end, int intervalMinutes, int breakMinutes) {
         List<TimeSlot> timeSlots = new ArrayList<>();
         LocalTime current = start;
@@ -74,6 +74,10 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
             current = current.plusMinutes(breakMinutes);
         }
         return timeSlots;
+    }
+
+    public List<Appointment> findAcceptedAppointmentsByDoctor(User doctor) {
+        return repository.findAcceptedAppointmentsByDoctor(doctor.getId());
     }
 
 }
