@@ -1,7 +1,6 @@
 package uz.pdp.controller;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.entity.User;
 import uz.pdp.service.UserService;
-
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/user-profile")
@@ -98,5 +95,11 @@ public class UserController {
     public String backPatientPage() {
         return "patient-page";
     }
+
+    @RequestMapping("/back-doctor-page")
+    public String backDoctorPage() {
+        return "doctor-page";
+    }
+
 }
 
