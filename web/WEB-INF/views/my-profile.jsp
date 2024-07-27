@@ -150,7 +150,13 @@
     </div>
 </div>
 
-<a href="${pageContext.request.contextPath}/user-profile/back-patient-page">Back</a>
+<%--<a href="${pageContext.request.contextPath}/user-profile/back-patient-page">Back</a>--%>
+<c:if test="${user.role == 'PATIENT'}">
+    <a href="${pageContext.request.contextPath}/user-profile/back-patient-page" class="btn btn-secondary mt-3">Back</a>
+</c:if>
+<c:if test="${user.role != 'PATIENT'}">
+    <a href="${pageContext.request.contextPath}/user-profile/back-doctor-page" class="btn btn-secondary mt-3">Back</a>
+</c:if>
 
 </body>
 </html>

@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.entity.Appointment;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.service.AppointmentService;
+import uz.pdp.service.MessageService;
 import uz.pdp.service.UserService;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,6 +22,7 @@ public class AdminController {
     @Autowired
     private final UserService userService;
 
+    @Autowired final MessageService messageService;
 
     @Autowired
     private final AppointmentService appointmentService;
@@ -83,6 +86,7 @@ public class AdminController {
 
     @RequestMapping("/delete-doctor")
     public String delete(@RequestParam(name = "userId") UUID userId, Model model) {
+        messageService.deleteMessageByAppointmentId(userId);
         appointmentService.deleteDoctorAppointments(userId);
         userService.delete(userId);
         model.addAttribute("users", userService.getAllDoctors());
