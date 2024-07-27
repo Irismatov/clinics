@@ -7,8 +7,6 @@
 
 <div class="container mt-5">
     <div class="row">
-
-
         <!-- User Profile Display -->
         <div class="col-md-6">
             <div class="card">
@@ -53,8 +51,12 @@
                         </div>
                         <div class="form-group">
                             <label for="gender">Gender</label>
-                            <input type="text" class="form-control" id="gender" name="gender" value="${user.gender}">
+                            <select class="form-control" id="gender" name="gender">
+                                <option value="MALE" ${user.gender == 'Male' ? 'selected' : ''}>Male</option>
+                                <option value="FEAMLE" ${user.gender == 'Female' ? 'selected' : ''}>Female</option>
+                            </select>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </form>
                 </div>

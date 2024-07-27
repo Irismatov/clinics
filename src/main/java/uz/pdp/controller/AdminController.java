@@ -6,8 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.entity.User;
+import uz.pdp.enumerators.UserRole;
+import uz.pdp.service.AppointmentService;
 import uz.pdp.service.UserService;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,9 +21,13 @@ public class AdminController {
     @Autowired
     private final UserService userService;
 
+
+    @Autowired
+    private final AppointmentService appointmentService;
+
     @GetMapping()
-    public String admin() {
-        return "admin-page";
+    public String admin(Model model) {
+        return "admin-menu";
     }
 
     @RequestMapping("/balance")
@@ -59,24 +64,33 @@ public class AdminController {
 
     @PostMapping("/create-doctors")
     public String create(@ModelAttribute User userEntity, Model model , HttpSession session) {
+        if(userService.checkMail(userEntity.getEmail(), userEntity.getUsername())){
+            model.addAttribute("message" , "Please be focus and full fields correctly !!!");
+            model.addAttribute("users", userService.getAllDoctors());
+            return "create-employee";
+        }
+        userService.save(userEntity);
+        model.addAttribute("roles", UserRole.values());
         userEntity.setCreatedAt(LocalDateTime.now());
         userEntity.setUpdatedAt(LocalDateTime.now());
-        userService.save(userEntity);
         model.addAttribute("users", userService.getAllDoctors());
-        return "admin-page";
+        return "create-employee";
     }
 
     @GetMapping("create" )
     public String create(Model model) {
         model.addAttribute("users", userService.getAllDoctors());
+        model.addAttribute("roles", UserRole.values());
         return "admin/create";
     }
 
     @RequestMapping("/delete-doctor")
     public String delete(@RequestParam(name = "userId") UUID userId, Model model) {
+        appointmentService.deleteDoctorAppointments(userId);
         userService.delete(userId);
         model.addAttribute("users", userService.getAllDoctors());
-        return "admin-page";
+        model.addAttribute("roles", UserRole.values());
+        return "show-employee";
     }
 
     @RequestMapping(value = "/update-doctor", method = RequestMethod.POST)
@@ -85,7 +99,15 @@ public class AdminController {
         userService.update(updatedUser);
         model.addAttribute("message", "Doctor updated successfully");
         model.addAttribute("users", userService.getAllDoctors());
-        return "admin-page";
+        model.addAttribute("roles", UserRole.values());
+        return "show-employee";
+    }
+
+    @GetMapping("show-employee")
+    public String showEmployee(Model model) {
+        model.addAttribute("users", userService.getAllDoctors());
+        model.addAttribute("roles", UserRole.values());
+        return "show-employee";
     }
 
 }

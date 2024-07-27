@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
+import uz.pdp.enumerators.AppointState;
 import uz.pdp.enumerators.AppointmentStatus;
 import uz.pdp.service.AppointmentService;
 import uz.pdp.service.UserService;
@@ -19,6 +20,7 @@ import uz.pdp.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -35,10 +37,10 @@ public class AppointmentController {
     @Autowired
     private final UserService userService;
 
-//    @GetMapping()
-//    public String appointment(Model model) {
-//
-//    }
+    @GetMapping()
+    public String appointment(Model model) {
+    return "appointment-page";
+    }
 
 
 
@@ -61,7 +63,7 @@ public class AppointmentController {
         } else {
             model.addAttribute("message", "no appointments found");
         }
-        return "appointmen-page";
+        return "appointment-page";
     }
 
     @RequestMapping("/choose-specialties")
@@ -154,8 +156,36 @@ public class AppointmentController {
                 .endTime(endTime)
                 .startTime(startTime)
                 .status(AppointmentStatus.BOOKED)
+                        .state(AppointState.NEW)
                 .build());
 
         return "doctor-specialties";
     }
+
+
+    @RequestMapping("/new-appointments")
+    public String newAppointments(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("newAppointment",service.getNewAppointments(user.getId()));
+        List<Appointment> newAppointments = service.getNewAppointments(user.getId());
+        List<User> users = new ArrayList<>();
+        for (Appointment newAppointment : newAppointments) {
+            users.add(userService.findById(newAppointment.getPatient().getId()));
+        }
+        List<Appointment> newAppointmentSeen = service.getNewAppointments(user.getId());
+        for (Appointment newAppointment : newAppointmentSeen) {
+            newAppointment.setState(AppointState.SEEN);
+            service.update(newAppointment);
+        }
+        model.addAttribute("appointments",users);
+        return "new-appointments";
+    }
+
+    @RequestMapping(value = "/back-appointments", method = RequestMethod.GET)
+    public String makeAppointmentsSeen(Model model) {
+        model.addAttribute("appointments",null);
+        return "doctor-page";
+    }
+
+
 }

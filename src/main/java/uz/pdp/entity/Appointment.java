@@ -3,6 +3,7 @@ package uz.pdp.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import uz.pdp.enumerators.AppointState;
 import uz.pdp.enumerators.AppointmentStatus;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,8 @@ public class Appointment extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private User patient;
+    @Enumerated(EnumType.STRING)
+    private AppointState state;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     @Enumerated(EnumType.STRING)

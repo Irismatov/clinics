@@ -5,11 +5,15 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
+import uz.pdp.exception.DataNotFoundException;
+import uz.pdp.exception.InvalidInputException;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Repository
@@ -32,12 +36,16 @@ public class UserRepository extends BaseRepository<User> {
 
     @Transactional
     public User save(User entity){
+        try {
         if(entityManager.contains(entity)){
             return null;
         }
         entity.setBalance(100000.0);
         entityManager.persist(entity);
         return entity;
+        }catch (InvalidInputException e){
+            return null;
+        }
     };
 
     public boolean checkMail(String email, String currentUsername) {
@@ -66,6 +74,7 @@ public class UserRepository extends BaseRepository<User> {
     }
 
 
+
     public List<User> getDoctors(){
         return entityManager.createQuery(
                         "SELECT e FROM User e WHERE e.role NOT IN (:excludedRoles)", User.class)
@@ -79,5 +88,6 @@ public class UserRepository extends BaseRepository<User> {
         query.setParameter("special", specialties);
         return query.getResultList();
     }
+
 
 }

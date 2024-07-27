@@ -3,8 +3,12 @@ package uz.pdp.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import org.eclipse.tags.shaded.org.apache.bcel.generic.NEW;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.entity.Appointment;
+import uz.pdp.entity.User;
+import uz.pdp.enumerators.AppointState;
 import uz.pdp.enumerators.AppointmentStatus;
 
 import java.time.LocalDate;
@@ -62,5 +66,24 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
         query.setParameter("current_time", LocalDateTime.now());
         return query.getResultList();
     }
+
+
+    public List<Appointment> getNewAppointments(UUID doctorId) {
+            return entityManager.createQuery(
+                    "SELECT a FROM Appointment a WHERE a.doctor.id = :doctor_id AND a.state = :state",
+                    Appointment.class
+            ).setParameter("doctor_id", doctorId)
+                    .setParameter("state", AppointState.NEW)
+        .getResultList();
+    }
+
+    @Transactional
+    public void deleteDoctorAppointment(UUID doctorId) {
+        entityManager.createQuery(
+                        "DELETE FROM Appointment a WHERE a.doctor.id = :doctor_id"
+                ).setParameter("doctor_id", doctorId)
+                .executeUpdate();
+    }
+
 
 }

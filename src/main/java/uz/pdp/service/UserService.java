@@ -3,9 +3,11 @@ import org.springframework.stereotype.Service;
 import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
+import uz.pdp.repository.AppointmentRepository;
 import uz.pdp.repository.UserRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -71,8 +73,8 @@ public class UserService extends BaseService<User, UserRepository>{
             byId.setAge(user.getAge());
             byId.setAddress(user.getAddress());
             byId.setPhoneNumber(user.getPhoneNumber());
-            super.update(byId);
-
+//            super.update(byId);
+            repository.update(byId);
             return byId;
             //return super.findById(byId.getId());
         } catch (Exception e) {

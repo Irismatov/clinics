@@ -80,4 +80,12 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
         return repository.findAcceptedAppointmentsByDoctor(doctor.getId());
     }
 
+
+    public List<Appointment> getNewAppointments(UUID doctorId) {
+       return repository.getNewAppointments(doctorId);
+    }
+
+    public void deleteDoctorAppointments(UUID doctorId){
+        repository.deleteDoctorAppointment(doctorId);
+    }
 }

@@ -7,10 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.DTO.LoginDTO;
 import uz.pdp.DTO.RegisterDTO;
+import uz.pdp.entity.Appointment;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
+import uz.pdp.service.AppointmentService;
 import uz.pdp.service.UserService;
 import uz.pdp.service.VerificationService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/auth")
@@ -23,6 +28,9 @@ public class AuthController {
 
     @Autowired
     private final VerificationService verificationService;
+    @Autowired
+    private final AppointmentService service;
+
 
     @RequestMapping("/login")
     public String loginPage() {
@@ -43,11 +51,16 @@ public class AuthController {
         if (userEntity.getRole() == UserRole.PATIENT) {
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
-            model.addAttribute("users", userService.getAllDoctors());
-            return "admin-page";
+            return "admin-menu";
         } else if (userEntity.getRole() == UserRole.ADMINISTRATOR) {
             return "adminitrator-page";
         } else if(userEntity.getRole()!=null) {
+            List<Appointment> newAppointments = service.getNewAppointments(userEntity.getId());
+            List<User> users = new ArrayList<>();
+            for (Appointment newAppointment : newAppointments) {
+                users.add(userService.findById(newAppointment.getPatient().getId()));
+            }
+            model.addAttribute("appointments",users);
             return "doctor-page";
         }
         model.addAttribute("error", "Username or password incorrect");
