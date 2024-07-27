@@ -86,9 +86,9 @@ public class AdminController {
 
     /**bu yerda doctorga ulangan tablelar ham o'chadi**/
     @RequestMapping("/delete-doctor")
-    public String delete(@RequestParam(name = "userId") UUID userId, Model model) {
-        Appointment byId = appointmentService.findById(userId);
-        messageService.deleteMessageByAppointmentId(byId.getId());
+    public String delete(@RequestParam(name = "userId") UUID userId, Model model,HttpSession session) {
+        UUID appointmentId = appointmentService.getAppointmentId(userId);
+        messageService.deleteMessageByAppointmentId(appointmentId);
         appointmentService.deleteDoctorAppointments(userId);
         userService.delete(userId);
         model.addAttribute("users", userService.getAllDoctors());

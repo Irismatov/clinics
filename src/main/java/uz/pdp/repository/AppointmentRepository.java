@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uz.pdp.entity.Appointment;
 import uz.pdp.enumerators.AppointState;
 import uz.pdp.enumerators.AppointmentStatus;
+import uz.pdp.exception.DataNotFoundException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -89,5 +90,17 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
                 .executeUpdate();
     }
 
+
+    public UUID findAppointmentId(UUID doctorId) {
+        try {
+            return entityManager.createQuery(
+                            "SELECT a.id FROM Appointment a WHERE a.doctor.id = :doctor_id",
+                            UUID.class
+                    ).setParameter("doctor_id", doctorId)
+                    .getSingleResult();
+        } catch (DataNotFoundException e) {
+            return null;
+        }
+    }
 
 }

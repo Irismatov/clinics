@@ -124,4 +124,8 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
     public void deleteDoctorAppointments(UUID doctorId){
         repository.deleteDoctorAppointment(doctorId);
     }
+
+    public UUID getAppointmentId(UUID doctorId) {
+     return  repository.findAppointmentId(doctorId);
+    }
 }
