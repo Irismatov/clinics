@@ -15,7 +15,6 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users")
-
 public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;

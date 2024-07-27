@@ -10,6 +10,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <a href="${pageContext.request.contextPath}/" class="back-link">
+        Back to Login
+    </a>
     <title>Patient</title>
     <style>
         body {

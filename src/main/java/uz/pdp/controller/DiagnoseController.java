@@ -14,7 +14,6 @@ import uz.pdp.entity.Prescription;
 import uz.pdp.entity.User;
 import uz.pdp.service.AppointmentService;
 import uz.pdp.service.DiagnoseService;
-import uz.pdp.service.UserService;
 
 import java.time.ZoneId;
 import java.util.*;
@@ -122,7 +121,6 @@ public class DiagnoseController {
 
         return "doctor-page";
     }
-
 
 
 }
