@@ -71,6 +71,7 @@
     </script>
 </head>
 <body>
+
 <div class="background"></div>
 <div class="content">
     <button class="btn" onclick="redirectToLogin()">Login</button>

@@ -1,13 +1,4 @@
 package uz.pdp.DTO;
-
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import uz.pdp.entity.User;
-import uz.pdp.enumerators.AppointState;
-import uz.pdp.enumerators.AppointmentStatus;
-
 import java.time.LocalDateTime;
 
 public class AppointmentDTO {

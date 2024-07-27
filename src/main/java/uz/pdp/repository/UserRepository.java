@@ -69,6 +69,7 @@ public class UserRepository extends BaseRepository<User> {
                     .setParameter("password", password)
                     .getSingleResult();
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return new User();
         }
     }
