@@ -34,7 +34,7 @@
     </button>
 </div>
 
-<a href="${pageContext.request.contextPath}/main/menu" class="back-link">
+<a href="${pageContext.request.contextPath}/admin/back-balance" class="back-link">
     <span>Back</span>
 </a>
 

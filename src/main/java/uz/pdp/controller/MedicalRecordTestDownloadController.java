@@ -1,5 +1,4 @@
 package uz.pdp.controller;
-
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -48,4 +47,5 @@ public class MedicalRecordTestDownloadController {
 
         return new ResponseEntity<>(fileSystemResource, headers, HttpStatus.OK);
     }
+
 }

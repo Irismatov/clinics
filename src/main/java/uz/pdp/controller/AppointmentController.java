@@ -1,5 +1,4 @@
 package uz.pdp.controller;
-
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +9,18 @@ import uz.pdp.DTO.AppointmentRequestDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.*;
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
+import uz.pdp.enumerators.AppointState;
 import uz.pdp.enumerators.AppointmentStatus;
-import uz.pdp.repository.UserRepository;
 import uz.pdp.service.AppointmentService;
 import uz.pdp.service.MessageService;
 import uz.pdp.service.UserService;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -38,18 +36,14 @@ public class AppointmentController {
 
     @Autowired
     private final UserService userService;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private AppointmentService appointmentService;
-    @Autowired
-    private MessageService messageService;
 
-//    @GetMapping()
-//    public String appointment(Model model) {
-//
-//    }
+    @Autowired
+    MessageService messageService;
 
+    @GetMapping()
+    public String appointment(Model model) {
+    return "appointment-page";
+    }
 
 
     @RequestMapping("/show")
@@ -63,6 +57,7 @@ public class AppointmentController {
         return "appointment-page";
     }
 
+
     @RequestMapping(value = "/show", method = RequestMethod.POST)
     public String showUserAppointments(HttpSession session, Model model) {
         List<Appointment> all = service.getUserAppointments((User) session.getAttribute("user"));
@@ -71,13 +66,15 @@ public class AppointmentController {
         } else {
             model.addAttribute("message", "no appointments found");
         }
-        return "appointmen-page";
+        return "appointment-page";
     }
+
 
     @RequestMapping("/choose-specialties")
     public String chooseSpecialtiesPage() {
         return "doctor-specialties";
     }
+
 
     @RequestMapping(name = "/doctors", method = RequestMethod.POST)
     public String getDoctorsBySpecialties(@RequestParam("specialty") String specialty, Model model) {
@@ -164,29 +161,57 @@ public class AppointmentController {
                 .endTime(endTime)
                 .startTime(startTime)
                 .status(AppointmentStatus.BOOKED)
+                        .state(AppointState.NEW)
                 .build());
 
         return "doctor-specialties";
     }
 
 
+    @RequestMapping("/new-appointments")
+    public String newAppointments(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("newAppointment",service.getNewAppointments(user.getId()));
+        List<Appointment> newAppointments = service.getNewAppointments(user.getId());
+        List<User> users = new ArrayList<>();
+        for (Appointment newAppointment : newAppointments) {
+            users.add(userService.findById(newAppointment.getPatient().getId()));
+        }
+        List<Appointment> newAppointmentSeen = service.getNewAppointments(user.getId());
+        for (Appointment newAppointment : newAppointmentSeen) {
+            newAppointment.setState(AppointState.SEEN);
+            service.update(newAppointment);
+        }
+        model.addAttribute("appointments",users);
+        return "new-appointments";
+    }
+
+    @RequestMapping(value = "/back-appointments", method = RequestMethod.GET)
+    public String makeAppointmentsSeen(Model model) {
+        model.addAttribute("appointments",null);
+        return "doctor-page";
+    }
+
+
+
+
     @RequestMapping(value = "/requests")
     public String showRequests(HttpSession session, Model model) {
         User doctor = (User) session.getAttribute("user");
-        List<AppointmentRequestDTO> appointmentRequests = appointmentService.findAppointmentRequests(doctor.getId());
+        List<AppointmentRequestDTO> appointmentRequests =service.findAppointmentRequests(doctor.getId());
         model.addAttribute("appointmentRequests", appointmentRequests);
         return "doctor-appointment-requests";
     }
 
+
     @RequestMapping(value = "/requests", method = RequestMethod.POST)
     public String updateAppointment(@RequestParam("appointment_id") UUID appointmentRequestId, @RequestParam("action") String action, @RequestParam(value = "reason", required = false) String reason ,Model model, HttpSession session) {
         User doctor = (User) session.getAttribute("user");
-        if (action.equals("1")) {
-            appointmentService.updateAppointmentRequest(appointmentRequestId, true);
+        if (action.equals("1")) {service.updateAppointmentRequest(appointmentRequestId, true);
         } else {
             messageService.save(appointmentRequestId, reason);
         }
-        List<AppointmentRequestDTO> appointmentRequests = appointmentService.findAppointmentRequests(doctor.getId());
+        List<AppointmentRequestDTO> appointmentRequests =service.findAppointmentRequests(doctor.getId());
         model.addAttribute("appointmentRequests", appointmentRequests);
         return "doctor-appointment-requests";
     }

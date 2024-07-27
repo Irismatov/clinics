@@ -76,6 +76,7 @@
 
 <div class="container mt-5">
     <div class="row">
+        <!-- User Profile Display -->
 
         <div class="col-md-6">
             <div class="card">
@@ -135,7 +136,10 @@
 
                         <div class="form-group">
                             <label for="gender">Gender</label>
-                            <input type="text" class="form-control" id="gender" name="gender" value="${user.gender}">
+                            <select class="form-control" id="gender" name="gender">
+                                <option value="MALE" ${user.gender == 'Male' ? 'selected' : ''}>Male</option>
+                                <option value="FEAMLE" ${user.gender == 'Female' ? 'selected' : ''}>Female</option>
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -146,7 +150,13 @@
     </div>
 </div>
 
-<a href="${pageContext.request.contextPath}/user-profile/back-patient-page">Back</a>
+<%--<a href="${pageContext.request.contextPath}/user-profile/back-patient-page">Back</a>--%>
+<c:if test="${user.role == 'PATIENT'}">
+    <a href="${pageContext.request.contextPath}/user-profile/back-patient-page" class="btn btn-secondary mt-3">Back</a>
+</c:if>
+<c:if test="${user.role != 'PATIENT'}">
+    <a href="${pageContext.request.contextPath}/user-profile/back-doctor-page" class="btn btn-secondary mt-3">Back</a>
+</c:if>
 
 </body>
 </html>

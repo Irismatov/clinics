@@ -35,4 +35,8 @@ public class MessageService extends BaseService<Message, MessageRepository>{
     public Message findByAppointmentId(UUID appointmentId) {
         return messageRepository.findMessageByAppointmentId(appointmentId);
     }
+
+    public void deleteMessageByAppointmentId(UUID appointmentId) {
+        messageRepository.deleteMessageByAppointmentId(appointmentId);
+    }
 }
