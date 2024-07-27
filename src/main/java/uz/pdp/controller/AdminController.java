@@ -11,7 +11,6 @@ import uz.pdp.service.AppointmentService;
 import uz.pdp.service.UserService;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 @Controller
 @RequestMapping("/admin")
 //@Setter
@@ -38,7 +37,6 @@ public class AdminController {
         return "balance";
     }
 
-
     @RequestMapping("/back-balance")
     public String backBalancePage(Model model, HttpSession session) {
         User user = (User)session.getAttribute("user");
@@ -55,7 +53,6 @@ public class AdminController {
             model.addAttribute("balance", user.getBalance());
             return "balance";
         }
-
         user.setBalance(user.getBalance() + amount);
         userService.update(user);
         model.addAttribute("balance", user.getBalance());

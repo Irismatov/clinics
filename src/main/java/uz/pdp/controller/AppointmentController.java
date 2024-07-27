@@ -46,7 +46,6 @@ public class AppointmentController {
     }
 
 
-
     @RequestMapping("/show")
     public String showPage(Model model, HttpSession session) {
         List<Appointment> all = service.getUserAppointments((User) session.getAttribute("user"));
@@ -57,6 +56,7 @@ public class AppointmentController {
         }
         return "appointment-page";
     }
+
 
     @RequestMapping(value = "/show", method = RequestMethod.POST)
     public String showUserAppointments(HttpSession session, Model model) {
@@ -69,10 +69,12 @@ public class AppointmentController {
         return "appointment-page";
     }
 
+
     @RequestMapping("/choose-specialties")
     public String chooseSpecialtiesPage() {
         return "doctor-specialties";
     }
+
 
     @RequestMapping(name = "/doctors", method = RequestMethod.POST)
     public String getDoctorsBySpecialties(@RequestParam("specialty") String specialty, Model model) {
@@ -200,6 +202,7 @@ public class AppointmentController {
         model.addAttribute("appointmentRequests", appointmentRequests);
         return "doctor-appointment-requests";
     }
+
 
     @RequestMapping(value = "/requests", method = RequestMethod.POST)
     public String updateAppointment(@RequestParam("appointment_id") UUID appointmentRequestId, @RequestParam("action") String action, @RequestParam(value = "reason", required = false) String reason ,Model model, HttpSession session) {
