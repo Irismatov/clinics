@@ -1,14 +1,9 @@
 package uz.pdp.entity;
-
-
 import jakarta.persistence.*;
 import lombok.*;
 import uz.pdp.enumerators.AppointState;
 import uz.pdp.enumerators.AppointmentStatus;
-
 import java.time.LocalDateTime;
-
-
 @Getter
 @Setter
 @NoArgsConstructor
