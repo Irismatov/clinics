@@ -43,5 +43,6 @@ public class UserController {
     public String backPatientPage() {
         return "patient-page";
     }
+
 }
 
