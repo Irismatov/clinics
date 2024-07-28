@@ -1,5 +1,5 @@
 package uz.pdp.enumerators;
 
 public enum AppointmentStatus {
-    BOOKED, ACCEPTED, CANCELLED;
+    BOOKED, ACCEPTED, CANCELLED, FINISHED, REJECTED
 }

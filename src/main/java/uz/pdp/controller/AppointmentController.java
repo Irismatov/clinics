@@ -9,6 +9,7 @@ import uz.pdp.DTO.AppointmentRequestDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import uz.pdp.DTO.PatientAppointmentDTO;
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
@@ -39,20 +40,30 @@ public class AppointmentController {
 
     @Autowired
     MessageService messageService;
+    @Autowired
+    private AppointmentService appointmentService;
 
     @GetMapping()
-    public String appointment(Model model) {
-    return "appointment-page";
+    public String appointment(Model model, HttpSession session) {
+     User user = (User)  session.getAttribute("user");
+        List<PatientAppointmentDTO> patientAppointmentDTOs = appointmentService.getPatientAppointmentDTOs(user.getId());
+        model.addAttribute("data", patientAppointmentDTOs);
+        return "appointment-page";
     }
 
 
     @RequestMapping("/show")
     public String showPage(Model model, HttpSession session) {
         List<Appointment> all = service.getUserAppointments((User) session.getAttribute("user"));
+
+        User user = (User)  session.getAttribute("user");
+        List<PatientAppointmentDTO> patientAppointmentDTOs = appointmentService.getPatientAppointmentDTOs(user.getId());
+        model.addAttribute("data", patientAppointmentDTOs);
+
         if (all.isEmpty()) {
             model.addAttribute("message", "no appointments found");
         } else {
-            model.addAttribute("appointments", all);
+            model.addAttribute("data", patientAppointmentDTOs);
         }
         return "appointment-page";
     }

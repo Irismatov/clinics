@@ -258,7 +258,7 @@
                     <tbody>
                     <c:forEach var="item" items="${data}">
                         <tr>
-                            <td><img src="${pageContext.request.contextPath}/${item.img}" width="50" height="50"/></td>
+                            <td><img src="${item.img}" width="50" height="50"/></td>
                             <td>${item.doctor_fio}</td>
                             <td>${item.appointment_start}</td>
                             <td>${item.appointment_end}</td>

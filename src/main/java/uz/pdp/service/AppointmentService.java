@@ -3,6 +3,7 @@ package uz.pdp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.DTO.AppointmentRequestDTO;
+import uz.pdp.DTO.PatientAppointmentDTO;
 import uz.pdp.entity.Appointment;
 import uz.pdp.entity.TimeSlot;
 import uz.pdp.entity.User;
@@ -10,6 +11,7 @@ import uz.pdp.enumerators.AppointmentStatus;
 import uz.pdp.repository.AppointmentRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +116,39 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
     }
     public List<Appointment> findAcceptedAppointmentsByDoctor(User doctor) {
         return repository.findAcceptedAppointmentsByDoctor(doctor.getId());
+    }
+
+    public List<PatientAppointmentDTO> getPatientAppointmentDTOs(UUID patientId) {
+        List<Appointment> appointments = repository.findAppointmentsByUser(patientId);
+        List<PatientAppointmentDTO> patientAppointmentDTOS = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            PatientAppointmentDTO dto = PatientAppointmentDTO.builder()
+                    .doctor_fio(appointment.getDoctor().getFirstname()  + " " + appointment.getDoctor().getLastname())
+                    .appointment_end(appointment.getEndTime())
+                    .img(appointment.getDoctor().getPicturePath())
+                    .appointment_start(appointment.getStartTime())
+                    .status(appointment.getStatus().toString())
+                    .build();
+
+            if (appointment.getStatus() == AppointmentStatus.ACCEPTED) {
+                dto.setStatus("ACCEPTED");
+            } else if (appointment.getStatus() == AppointmentStatus.CANCELLED) {
+                dto.setStatus("CANCELLED");
+            } else if (appointment.getStatus() == AppointmentStatus.FINISHED) {
+                dto.setStatus("FINISHED");
+            } else if (appointment.getStatus() == AppointmentStatus.BOOKED && appointment.getStartTime().isBefore(LocalDateTime.now())) {
+                dto.setStatus("IGNORED");
+            } else if (appointment.getStatus() == AppointmentStatus.BOOKED) {
+                dto.setStatus("BOOKED");
+            } else if (appointment.getStatus() == AppointmentStatus.CANCELLED) {
+                dto.setStatus("CANCELLED");
+            } else if (appointment.getStatus() == AppointmentStatus.REJECTED) {
+                dto.setStatus("REJECTED");
+            }
+
+            patientAppointmentDTOS.add(dto);
+        }
+        return patientAppointmentDTOS;
     }
 
 
