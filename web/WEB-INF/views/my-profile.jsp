@@ -1,5 +1,8 @@
+<%@ page import="static com.itextpdf.kernel.pdf.PdfName.User" %>
+<%@ page import="uz.pdp.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%  User user = (User) session.getAttribute("user"); %>
 <html>
 <head>
     <title>My Update File</title>
@@ -77,13 +80,13 @@
 <div class="container mt-5">
     <div class="row">
         <!-- User Profile Display -->
-
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h3>User Profile</h3>
                 </div>
                 <div class="card-body">
+                    <img src="${pageContext.request.contextPath}${user.picturePath}" alt="Profile Pic" height="100" width="100">
                     <form id="updateForm" action="${pageContext.request.contextPath}/user-profile" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="${user.id}">
 
@@ -138,7 +141,7 @@
                             <label for="gender">Gender</label>
                             <select class="form-control" id="gender" name="gender">
                                 <option value="MALE" ${user.gender == 'Male' ? 'selected' : ''}>Male</option>
-                                <option value="FEAMLE" ${user.gender == 'Female' ? 'selected' : ''}>Female</option>
+                                <option value="FEMALE" ${user.gender == 'Female' ? 'selected' : ''}>Female</option>
                             </select>
                         </div>
 
@@ -150,7 +153,6 @@
     </div>
 </div>
 
-<%--<a href="${pageContext.request.contextPath}/user-profile/back-patient-page">Back</a>--%>
 <c:if test="${user.role == 'PATIENT'}">
     <a href="${pageContext.request.contextPath}/user-profile/back-patient-page" class="btn btn-secondary mt-3">Back</a>
 </c:if>
@@ -160,8 +162,3 @@
 
 </body>
 </html>
-
-
-
-
-

@@ -25,7 +25,7 @@ public class UserService extends BaseService<User, UserRepository>{
         repository = userRepository;
     }
 
-    private String picPath = "D:\\spring\\clinics\\web\\profilePics";
+    private final String picPath = "src/main/web/profilePics";
 
 
     public void test(){
@@ -95,11 +95,18 @@ public class UserService extends BaseService<User, UserRepository>{
     public String savePic(MultipartFile file) {
         String fileName = getFileName(file);
         try {
-            Files.write(Path.of(picPath + "\\" + fileName ), file.getBytes());
+            // Ensure the directory exists
+            Path directoryPath = Paths.get(picPath);
+            if (!Files.exists(directoryPath)) {
+                Files.createDirectories(directoryPath);
+            }
+
+            // Save the file
+            Files.write(directoryPath.resolve(fileName), file.getBytes());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to save the picture", e);
         }
-        return fileName;
+        return "profilePics/" + fileName;
     }
 
     private String getFileName(MultipartFile file) {
