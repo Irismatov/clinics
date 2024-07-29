@@ -26,4 +26,5 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement(uploadDir, 20971520, 41943040, 0);
         registration.setMultipartConfig(multipartConfigElement);
     }
+
 }
