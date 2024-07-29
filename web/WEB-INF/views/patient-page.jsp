@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 1
@@ -9,11 +10,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <a href="${pageContext.request.contextPath}/" class="back-link">
+        Back to Login
+    </a>
     <title>Patient</title>
     <style>
         body {
-            background-color: black;
-            color: white;
             font-family: Arial, sans-serif;
         }
         .button {
@@ -21,7 +23,7 @@
             padding: 10px 20px;
             background-color: #4CAF50; /* Green */
             border: none;
-            color: white;
+            color: black;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -60,6 +62,12 @@
         <a href="${pageContext.request.contextPath}/accepted-requests/next-page">My diagnosis</a>
     </button>
 </div>
+<c:forEach items="${notifications}" var="notification">
+     <strong>${notification.doctor_fio}</strong>
+    <strong>${notification.appointment_start}</strong>
+    <strong>${notification.appointment_end}</strong>
+</c:forEach>
+
 
 </body>
 </html>

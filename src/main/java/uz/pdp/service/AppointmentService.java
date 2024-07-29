@@ -110,10 +110,23 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
             userService.updateUser(patient);
             appointment.setStatus(AppointmentStatus.CANCELLED);
         }
+        appointment.setPatientSeen(false);
         repository.update(appointment);
     }
     public List<Appointment> findAcceptedAppointmentsByDoctor(User doctor) {
         return repository.findAcceptedAppointmentsByDoctor(doctor.getId());
     }
 
+
+    public List<Appointment> getNewAppointments(UUID doctorId) {
+       return repository.getNewAppointments(doctorId);
+    }
+
+    public void deleteDoctorAppointments(UUID doctorId){
+        repository.deleteDoctorAppointment(doctorId);
+    }
+
+    public UUID getAppointmentId(UUID doctorId) {
+     return  repository.findAppointmentId(doctorId);
+    }
 }
