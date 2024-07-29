@@ -28,7 +28,7 @@ public class NotificationService {
 
     public List<NotificationDTO> patientNotifications(UUID patientId) {
         List<NotificationDTO> patientNotifications = new ArrayList<>();
-        List<Appointment> appointmentsByUser = appointmentService.findAppointmentsByUser(patientId);
+        List<Appointment> appointmentsByUser = appointmentService.findAppointmentsByUser(patientId, "all");
         User patient = userService.findById(patientId);
         for (Appointment appointment : appointmentsByUser) {
             if (!appointment.isPatientSeen()) {

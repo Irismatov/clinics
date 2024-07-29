@@ -71,8 +71,8 @@
         </div>
         <c:if test="${diagnosis.hospitalization}">
             <div class="hospitalization-recommendation">
-                The doctor recommends hospitalization.
                 <c:if test="${diagnosis.agreedToHospitalization == null}">
+                    The doctor recommends hospitalization.
                     <form method="post">
                         <input type="hidden" name="diagnosisId" value="${diagnosis.id}">
                         <input type="hidden" name="decision" value="accept">
