@@ -25,7 +25,7 @@ public class UserService extends BaseService<User, UserRepository>{
         repository = userRepository;
     }
 
-    private final String picPath = "src/main/web/profilePics";
+    private final String picPath = "web/profilePics";
 
 
     public void test(){
@@ -51,7 +51,7 @@ public class UserService extends BaseService<User, UserRepository>{
     }
 
     public User registerDto(RegisterDTO registerDTO) {
-         User user = User.builder()
+        User user = User.builder()
                 .age(registerDTO.getAge())
                 .address(registerDTO.getAddress())
                 .email(registerDTO.getEmail())

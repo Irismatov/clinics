@@ -52,7 +52,7 @@ public class AppointmentController {
     }
 
 
-    @RequestMapping("/show")
+
     public String showPage(Model model, HttpSession session) {
         List<Appointment> all = service.getUserAppointments((User) session.getAttribute("user"));
 
