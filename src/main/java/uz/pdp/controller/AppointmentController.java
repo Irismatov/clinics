@@ -51,10 +51,10 @@ public class AppointmentController {
 //    }
 
 
-
     @RequestMapping("/show")
     public String showPage(Model model, HttpSession session) {
-        List<Appointment> all = service.getUserAppointments((User) session.getAttribute("user"));
+        User user = (User)session.getAttribute("user");
+        List<Appointment> all = service.findAppointmentsByUser(user.getId(), "all");
         if (all.isEmpty()) {
             model.addAttribute("message", "no appointments found");
         } else {
@@ -65,13 +65,14 @@ public class AppointmentController {
 
     @RequestMapping(value = "/show", method = RequestMethod.POST)
     public String showUserAppointments(HttpSession session, Model model) {
-        List<Appointment> all = service.getUserAppointments((User) session.getAttribute("user"));
+        User user = (User)session.getAttribute("user");
+        List<Appointment> all = service.findAppointmentsByUser(user.getId(), "all");
         if (!all.isEmpty()) {
             model.addAttribute("appointments", all);
         } else {
             model.addAttribute("message", "no appointments found");
         }
-        return "appointmen-page";
+        return "appointment-page";
     }
 
     @RequestMapping("/choose-specialties")
@@ -111,10 +112,10 @@ public class AppointmentController {
     }
 
 
-
     @RequestMapping("select-day")
     public String showTimeSlotsPage(@RequestParam("doctorId") UUID doctorId, @RequestParam("date") LocalDate date, Model model, HttpSession session) {
         List<TimeSlot> timeSlots = service.getAvailableTimeSlots(doctorId, date);
+
         session.setAttribute("date", date);
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("selectedDate", date);
@@ -125,6 +126,7 @@ public class AppointmentController {
     @RequestMapping(value = "/select-day", method = RequestMethod.POST)
     public String showTimeSlots(@RequestParam("doctorId") UUID doctorId, @RequestParam("date") LocalDate date, Model model) {
         List<TimeSlot> timeSlots = service.getAvailableTimeSlots(doctorId, date);
+
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("selectedDate", date);
         return "available-time-slots";
@@ -133,21 +135,21 @@ public class AppointmentController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createAppointment(@RequestParam("start") String startStr, @RequestParam("end") String endStr,
-                                    HttpSession session , Model model) {
+                                    HttpSession session, Model model) {
 
         User doctor = userService.findById((UUID) session.getAttribute("doctorId"));
         LocalDate date = (LocalDate) session.getAttribute("date");
 
         User user = (User) session.getAttribute("user");
 
-        if(user.getBalance() < 0){
+        if (user.getBalance() < 0) {
             model.addAttribute("message", "you have not enough balance");
             return "balance";
         }
 
         user.setBalance(user.getBalance() - 10000);
         userService.update(user);
-        if(user.getBalance() < 0){
+        if (user.getBalance() < 0) {
             model.addAttribute("message", "you have not enough money");
             return "balance";
         }
@@ -179,7 +181,7 @@ public class AppointmentController {
     }
 
     @RequestMapping(value = "/requests", method = RequestMethod.POST)
-    public String updateAppointment(@RequestParam("appointment_id") UUID appointmentRequestId, @RequestParam("action") String action, @RequestParam(value = "reason", required = false) String reason ,Model model, HttpSession session) {
+    public String updateAppointment(@RequestParam("appointment_id") UUID appointmentRequestId, @RequestParam("action") String action, @RequestParam(value = "reason", required = false) String reason, Model model, HttpSession session) {
         User doctor = (User) session.getAttribute("user");
         if (action.equals("1")) {
             appointmentService.updateAppointmentRequest(appointmentRequestId, true);
@@ -190,4 +192,5 @@ public class AppointmentController {
         model.addAttribute("appointmentRequests", appointmentRequests);
         return "doctor-appointment-requests";
     }
+
 }

@@ -12,9 +12,12 @@ public class DiagnoseRepository extends BaseRepository<Diagnose> {
         this.type = Diagnose.class;
     }
 
+
     public List<Diagnose> findDiagnoseByAppointment(UUID appointmentId) {
-        return entityManager.createQuery("from Diagnose where appointment.id = :appointmentId", Diagnose.class)
+        return entityManager.createQuery(
+                        "SELECT d FROM Diagnose d LEFT JOIN FETCH d.prescriptions WHERE d.appointment.id = :appointmentId", Diagnose.class)
                 .setParameter("appointmentId", appointmentId)
                 .getResultList();
     }
+
 }

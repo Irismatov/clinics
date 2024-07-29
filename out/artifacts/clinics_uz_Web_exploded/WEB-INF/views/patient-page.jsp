@@ -55,6 +55,10 @@
     <button class="button">
         <a href="${pageContext.request.contextPath}/user-profile">My Profile</a>
     </button>
+
+    <button class="button">
+        <a href="${pageContext.request.contextPath}/accepted-requests/next-page">My diagnosis</a>
+    </button>
 </div>
 
 </body>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -208,7 +209,7 @@
 
     <script>
         function showDiagnosisButton() {
-            console.log("Diagnosis button shown"); // Отладочный вывод
+            console.log("Diagnosis button shown");
             document.getElementById('createDiagnosisSection').classList.remove('hidden');
             document.getElementById('createDiagnosisButton').disabled = false;
         }
@@ -260,6 +261,12 @@
     </script>
 </head>
 <body>
+
+<c:choose>
+    <c:when test="${not empty message}">
+        <div class="message">${message}</div>
+    </c:when>
+    <c:otherwise>
 
 <button class="top-right-button btn" onclick="showDiagnosisButton()">Start</button>
 
@@ -319,6 +326,7 @@
         </form>
     </div>
 </div>
-
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

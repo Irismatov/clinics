@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Builder
 @Entity
 @Table(name = "diagnoses")
@@ -22,4 +21,5 @@ public class Diagnose extends BaseEntity {
     @OneToMany(mappedBy = "diagnose", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Prescription> prescriptions;
     private Boolean hospitalization;
+    private String agreedToHospitalization;
 }

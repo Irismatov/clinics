@@ -44,7 +44,7 @@ public class DiagnoseController {
             appointmentData.put("patientLastname", appointment.getPatient().getLastname());
             appointmentData.put("startTime", Date.from(appointment.getStartTime().atZone(ZoneId.systemDefault()).toInstant()));
             appointmentData.put("endTime", Date.from(appointment.getEndTime().atZone(ZoneId.systemDefault()).toInstant()));
-            appointmentData.put("id", appointment.getId()); // Если понадобится id для формы
+            appointmentData.put("id", appointment.getId());
             formattedAppointments.add(appointmentData);
         }
 
@@ -63,6 +63,7 @@ public class DiagnoseController {
             appointmentData.put("patientLastname", appointment.getPatient().getLastname());
             appointmentData.put("startTime", Date.from(appointment.getStartTime().atZone(ZoneId.systemDefault()).toInstant()));
             appointmentData.put("endTime", Date.from(appointment.getEndTime().atZone(ZoneId.systemDefault()).toInstant()));
+            appointmentData.put("id", appointment.getId());
             formattedAppointments.add(appointmentData);
         }
         model.addAttribute("appointments", formattedAppointments);
@@ -74,6 +75,11 @@ public class DiagnoseController {
     @RequestMapping("/selected-appointment")
     public String showSelectedAppointmentPage(@RequestParam("appointmentId") UUID selectedAppointmentId, Model model, HttpSession session) {
         Appointment byId = service.findById(selectedAppointmentId);
+        List<Diagnose> diagnoseByAppointment = diagnoseService.findDiagnoseByAppointment(byId.getId());
+        if (!diagnoseByAppointment.isEmpty()) {
+            model.addAttribute("message", "Diagnosis already exists!");
+            return "selected-appointment-page";
+        }
         model.addAttribute("appointment", byId);
         return "selected-appointment-page";
     }
@@ -81,8 +87,13 @@ public class DiagnoseController {
 
     @RequestMapping(value = "/selected-appointment", method = RequestMethod.POST)
     public String showSelectedAppointment(@RequestParam("appointmentId") UUID selectedAppointmentId,Model model, HttpSession session) {
-        Appointment byId = service.findById(selectedAppointmentId);
-        model.addAttribute("appointment", byId);
+        Appointment thisAppointment = service.findById(selectedAppointmentId);
+        List<Diagnose> diagnoseByAppointment = diagnoseService.findDiagnoseByAppointment(thisAppointment.getId());
+        if (!diagnoseByAppointment.isEmpty()) {
+            model.addAttribute("message", "Diagnosis already exists!");
+            return "selected-appointment-page";
+        }
+        model.addAttribute("appointment", thisAppointment);
         return "selected-appointment-page";
     }
 
@@ -121,6 +132,46 @@ public class DiagnoseController {
          diagnoseService.save(diagnose);
 
         return "doctor-page";
+    }
+
+
+
+    @RequestMapping("/next-page")
+    public String showPage(Model model, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        List<Appointment> all = service.findAppointmentsByUser(user.getId(), "ACCEPTED");
+        if (all.isEmpty()) {
+            model.addAttribute("message", "no appointments found");
+        } else {
+            model.addAttribute("appointments", all);
+        }
+        return "diagnosis-detail-page";
+    }
+
+    @RequestMapping(value = "/next-page", method = RequestMethod.POST)
+    public String showUserAppointments(HttpSession session, Model model) {
+        User user = (User)session.getAttribute("user");
+        List<Appointment> all = service.findAppointmentsByUser(user.getId(), "ACCEPTED");
+        if (!all.isEmpty()) {
+            model.addAttribute("appointments", all);
+        } else {
+            model.addAttribute("message", "no appointments found");
+        }
+        return "diagnosis-detail-page";
+    }
+
+    @RequestMapping("/get-diagnosis")
+    public String showDiagnosisPage(@RequestParam("appointmentId") UUID appointmentId, Model model) {
+        List<Diagnose> diagnoseByAppointment = diagnoseService.findDiagnoseByAppointment(appointmentId);
+        model.addAttribute("diagnose33s", diagnoseByAppointment);
+        return "diagnosis-hospitalization-page";
+    }
+
+    @RequestMapping(value = "/get-diagnosis", method = RequestMethod.POST)
+    public String showDiagnosis(@RequestParam("appointmentId") UUID appointmentId, Model model) {
+        List<Diagnose> diagnoseByAppointment = diagnoseService.findDiagnoseByAppointment(appointmentId);
+        model.addAttribute("diagnoses", diagnoseByAppointment);
+       return "diagnosis-hospitalization-page";
     }
 
 

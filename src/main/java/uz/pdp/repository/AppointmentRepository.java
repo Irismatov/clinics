@@ -9,10 +9,7 @@ import uz.pdp.enumerators.AppointmentStatus;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Repository
 public class AppointmentRepository extends BaseRepository<Appointment> {
@@ -47,7 +44,13 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
         return query.getResultList();
     }
 
-    public List<Appointment> findAppointmentsByUser(UUID userId) {
+    public List<Appointment> findAppointmentsByUser(UUID userId, String isAccepted) {
+        if(Objects.equals(isAccepted, "accepted")) {
+            return entityManager.createQuery("from Appointment where patient.id = :userId and status = :ACCEPTED", Appointment.class)
+                    .setParameter("ACCEPTED", isAccepted)
+                    .setParameter("userId", userId)
+                    .getResultList();
+        }
         return entityManager.createQuery("from Appointment where patient.id = :userId", Appointment.class)
                 .setParameter("userId", userId)
                 .getResultList();
