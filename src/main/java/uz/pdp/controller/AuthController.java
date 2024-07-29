@@ -53,7 +53,7 @@ public class AuthController {
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
             return "admin-menu";
         } else if (userEntity.getRole() == UserRole.ADMINISTRATOR) {
-            return "adminitrator-page";
+            return "administrator-page";
         } else if(userEntity.getRole()!=null) {
             List<Appointment> newAppointments = service.getNewAppointments(userEntity.getId());
             List<User> users = new ArrayList<>();

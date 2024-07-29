@@ -21,18 +21,6 @@ public class UserController {
         return "my-profile";
     }
 
-    @RequestMapping("/showPic")
-    public String showProfilePage(Model model) {
-        return "profile";
-    }
-
-    @RequestMapping(value = "/showPic",method = RequestMethod.POST)
-    public String showProfile(@RequestParam("picture") MultipartFile file, HttpSession session) {
-            String s = userService.savePic(file);
-        User user = (User) session.getAttribute("user");
-        user.setPicturePath(s);
-        return "profile";
-    }
 
     @PostMapping()
     public String update(@ModelAttribute User user,
@@ -100,6 +88,7 @@ public class UserController {
     public String backDoctorPage() {
         return "doctor-page";
     }
+
 
 }
 

@@ -57,6 +57,10 @@
     <button class="button">
         <a href="${pageContext.request.contextPath}/user-profile">My Profile</a>
     </button>
+
+    <button class="button">
+        <a href="${pageContext.request.contextPath}/accepted-requests/next-page">My diagnosis</a>
+    </button>
 </div>
 <c:forEach items="${notifications}" var="notification">
      <strong>${notification.doctor_fio}</strong>

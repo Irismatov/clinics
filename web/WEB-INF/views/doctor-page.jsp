@@ -121,10 +121,6 @@
     <button class="button">
         <a href="${pageContext.request.contextPath}/user-profile">My Profile</a>
     </button>
-
-    <button class="button">
-        <a href="${pageContext.request.contextPath}/user-profile/showPic">My pic</a>
-    </button>
 </div>
 
 <c:choose>

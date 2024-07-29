@@ -56,8 +56,8 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
 
 
 
-    public List<Appointment> findAppointmentsByUser(UUID userId) {
-        return repository.findAppointmentsByUser(userId);
+    public List<Appointment> findAppointmentsByUser(UUID userId, String status) {
+        return repository.findAppointmentsByUser(userId, status);
     }
 
     public List<AppointmentRequestDTO> findAppointmentRequests(UUID doctorId) {
@@ -80,6 +80,7 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
     private List<TimeSlot> createTimeSlots(LocalTime start, LocalTime end, int intervalMinutes, int breakMinutes) {
         List<TimeSlot> timeSlots = new ArrayList<>();
         LocalTime current = start;
+        LocalTime now = LocalTime.now();
         int intervalsBeforeBreak = 2;
 
         while (current.isBefore(end)) {
@@ -88,7 +89,7 @@ public class AppointmentService extends BaseService<Appointment, AppointmentRepo
                 if (endTime.isAfter(end)) {
                     break;
                 }
-                timeSlots.add(new TimeSlot(current, endTime));
+                    timeSlots.add(new TimeSlot(current, endTime));
                 current = endTime;
             }
             current = current.plusMinutes(breakMinutes);

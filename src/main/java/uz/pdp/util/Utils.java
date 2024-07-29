@@ -47,7 +47,7 @@ public class Utils {
 
     public File createMedicalRecordForUser(UUID id) throws IOException {
         User patient = userService.findById(id);
-        List<Appointment> appointments = appointmentService.findAppointmentsByUser(id);
+        List<Appointment> appointments = appointmentService.findAppointmentsByUser(id, "all");
 
         String directoryPath = "src/main/resources/files/";
         File directory = new File(directoryPath);
