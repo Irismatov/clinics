@@ -11,6 +11,7 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
+            background-repeat: no-repeat;
             background-color: #f0f8ff;
             background-image: url('https://i.pinimg.com/564x/69/8d/24/698d24b367fc44d6392a6d0ba41e04ce.jpg'); /* Replace with your background image URL */
             background-size: cover;

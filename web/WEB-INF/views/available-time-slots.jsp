@@ -33,7 +33,7 @@
             width: 80%;
         }
         .slot-button {
-            background-color: #28a745;
+            background-color: #2793dc;
             border: none;
             padding: 15px 25px;
             margin: 10px 0;
@@ -45,7 +45,7 @@
             transition: background-color 0.3s, transform 0.3s;
         }
         .slot-button:hover {
-            background-color: #218838;
+            background-color: #007acc;
             transform: translateY(-3px);
         }
         .not-available {

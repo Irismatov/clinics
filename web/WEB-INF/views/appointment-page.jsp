@@ -15,6 +15,7 @@
             display: flex;
             height: 100vh;
             background-image: url('https://i.pinimg.com/236x/3b/e3/63/3be3636ca1cff58ea64dc8096a851ffc.jpg');
+            background-repeat: no-repeat;
         }
 
         .navbar {
