@@ -27,6 +27,9 @@ public class RoomService extends BaseService<Room, RoomRepository> {
 
     public Optional<Room> findAvailableRoom() {
         List<Room> rooms = repository.getAllRooms();
+        if (rooms.isEmpty()) {
+            return Optional.empty();
+        }
         for (Room room : rooms) {
             List<RoomOccupant> occupants = roomOccupantService.findOccupancyByRoom(room);
             int occupiedBeds = occupants.size();

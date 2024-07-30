@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Title</title>
+    <title>Welcome</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -169,7 +169,7 @@
                     <li>Email:info@beclinic.com</li>
                 </ul>
                 <ul class="d-flex gap-3 pe-4 align-items-center">
-                    <li>For emergency cases:  800 123 45 67</li>
+                    <li>For emergency cases: 103</li>
                     <form action="${pageContext.request.contextPath}/auth/login" method="get">
                         <button class="login">Login</button>
                     </form>
@@ -286,3 +286,4 @@
 ></script>
 </body>
 </html>
+
