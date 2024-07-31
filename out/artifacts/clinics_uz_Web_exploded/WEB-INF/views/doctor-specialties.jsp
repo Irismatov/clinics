@@ -11,11 +11,15 @@
     <style>
         body {
             display: flex;
+            background-repeat: no-repeat;
             background-image: url('https://i.pinimg.com/564x/69/8d/24/698d24b367fc44d6392a6d0ba41e04ce.jpg');
+            background-size: cover;
+            background-position: center;
             min-height: 100vh;
             margin: 0;
             font-family: 'Roboto', sans-serif;
         }
+
         .navbar {
             background-image: url("https://img.freepik.com/free-vector/blue-medical-background-with-hexagonal-shape-design_1017-26839.jpg");
             background-repeat: no-repeat;
@@ -87,7 +91,8 @@
             transform: translateY(-5px);
         }
         .select-button {
-            background-color: #ffffff2f; /* Semi-transparent white */
+            background-color: #ffffff2f;
+            color: #6c7286;/* Semi-transparent white */
             border: none;
             padding: 10px 20px;
             text-align: center;
@@ -100,7 +105,7 @@
         }
 
         .select-button:hover {
-            background-color: #ffffff5b; /* Full white on hover */
+            background-color: grey; /* Full white on hover */
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
         }
@@ -137,7 +142,7 @@
 <body class=" bg-light">
 
 <div class="navbar">
-    <img src="https://i.pinimg.com/564x/e2/1d/42/e21d423f7c1bcea86f1680d47279bd3f.jpg" alt="User Photo" />
+    <img src="https://i.pinimg.com/564x/74/ea/5a/74ea5afad2388297aa6222d92efd3b67.jpg" alt="User Photo" />
     <h2>${user.firstname}</h2>
     <h2>${user.lastname}</h2>
     <h3>${user.email}</h3>

@@ -86,7 +86,7 @@
             </li>
         </c:forEach>
     </ul>
-    <a href="${pageContext.request.contextPath}/previous-page" class="back-link">Back</a>
+    <a href="${pageContext.request.contextPath}/user-profile/back-patient-page" class="btn btn-secondary mt-3">Back</a>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

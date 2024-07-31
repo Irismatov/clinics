@@ -11,6 +11,7 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
+            background-repeat: no-repeat;
             background-color: #f0f8ff;
             background-image: url('https://i.pinimg.com/564x/69/8d/24/698d24b367fc44d6392a6d0ba41e04ce.jpg'); /* Replace with your background image URL */
             background-size: cover;
@@ -85,7 +86,7 @@
             </li>
         </c:forEach>
     </ul>
-    <a href="${pageContext.request.contextPath}/previous-page" class="back-link">Back</a>
+    <a href="${pageContext.request.contextPath}/user-profile/back-patient-page" class="btn btn-secondary mt-3">Back</a>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

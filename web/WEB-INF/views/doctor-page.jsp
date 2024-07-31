@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Doctor Dashboard</title>
     <link
             rel="stylesheet"
@@ -31,7 +31,7 @@
             background-size: 300% 100%;
             object-fit: cover;
             width: 310px;
-            color: white;
+            color: #807d88;
             display: flex;
             flex-direction: column;
             align-items: center;

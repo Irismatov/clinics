@@ -32,7 +32,7 @@
             background-repeat: no-repeat;
             background-size: cover;
             width: 310px;
-            color: #9d9c90;
+            color: #807d88;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -219,7 +219,7 @@
 >
 <div class="navbar">
     <img
-            src="https://i.pinimg.com/564x/e2/1d/42/e21d423f7c1bcea86f1680d47279bd3f.jpg"
+            src="https://i.pinimg.com/564x/74/ea/5a/74ea5afad2388297aa6222d92efd3b67.jpg"
             alt="User Photo"
     />
     <h2>${user.firstname}</h2>
