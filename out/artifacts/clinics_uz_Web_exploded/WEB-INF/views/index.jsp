@@ -190,13 +190,7 @@
                                 alt=""
                         />
                     </li>
-                    <li>Home</li>
-                    <li>Doctors</li>
-                </ul>
-                <ul class="pe-4">
-                    <button class="button_hover">
-                        APPOINTMENT
-                    </button>
+                    <li>Always glad to help</li>
                 </ul>
             </nav>
         </header>
@@ -208,11 +202,9 @@
             <div class="text">
                 <h1>Bringing Health to life for the whole family</h1>
                 <button style="background-color: #59d4fb;">
-                    VIEW DEPARTMENTS
+                    <a href="${pageContext.request.contextPath}/auth/register" class="back-button">REGISTER</a>
                 </button>
-                <button style="background-color: rgba(255, 255, 255, 0.375);">
-                    GET IN TOUCH
-                </button>
+
             </div>
         </div>
         <div class="slide">
@@ -223,10 +215,7 @@
             <div class="text">
                 <h1>Your Health, Our Priority</h1>
                 <button style="background-color: #59d4fb;">
-                    VIEW DEPARTMENTS
-                </button>
-                <button style="background-color: rgba(255, 255, 255, 0.375);">
-                    GET IN TOUCH
+                    <a href="${pageContext.request.contextPath}/auth/register" class="back-button">REGISTER</a>
                 </button>
             </div>
         </div>
@@ -239,10 +228,7 @@
             <div class="text">
                 <h1>Your Health, Our Priority</h1>
                 <button style="background-color: #59d4fb;">
-                    VIEW DEPARTMENTS
-                </button>
-                <button style="background-color: rgba(255, 255, 255, 0.375);">
-                    GET IN TOUCH
+                    <a href="${pageContext.request.contextPath}/auth/register" class="back-button">REGISTER</a>
                 </button>
             </div>
         </div>

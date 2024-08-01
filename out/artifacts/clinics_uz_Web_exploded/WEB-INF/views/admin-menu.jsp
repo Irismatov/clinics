@@ -2,68 +2,52 @@
 <html>
 <head>
     <title>Employee Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         body {
-            background-color: #121212; /* Dark background for a modern look */
-            color: #e0e0e0; /* Light grey text for readability */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            font-family: 'Roboto', sans-serif;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+            padding: 0;
         }
         .container {
-            background: linear-gradient(145deg, #1e1e1e, #2b2b2b); /* Gradient background */
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Enhanced shadow for depth */
-            max-width: 600px; /* Generous width */
-            width: 100%; /* Full width for smaller screens */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px; /* Space between buttons */
+            margin-top: 30px;
+            text-align: center;
         }
         .button {
-            background: linear-gradient(145deg, #007bff, #0056b3); /* Gradient background */
+            background-color: #28a745; /* Green, suitable for medical theme */
+            color: #fff;
             border: none;
-            color: white;
             padding: 12px 24px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 16px;
-            border-radius: 8px;
+            font-size: 18px;
+            margin: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%; /* Full width for consistency */
-            max-width: 200px; /* Maximum width for buttons */
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .button:hover {
-            background: linear-gradient(145deg, #0056b3, #003d7a); /* Darker gradient on hover */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Subtle shadow change on hover */
+            background-color: #218838;
+            transform: scale(1.05);
         }
         .back-link {
-            background: linear-gradient(145deg, #444, #666); /* Gradient button appearance */
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            text-align: center;
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
             text-decoration: none;
-            width: 100%; /* Full width for consistency */
-            max-width: 200px; /* Maximum width for buttons */
+            font-size: 18px;
         }
         .back-link:hover {
-            background: linear-gradient(145deg, #666, #888); /* Darker gradient on hover */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Shadow effect on hover */
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="container animate__animated animate__fadeIn">
     <form action="${pageContext.request.contextPath}/admin/create-doctors" method="post">
         <input type="submit" value="Create Employee" class="button">
     </form>
@@ -76,3 +60,4 @@
 </div>
 </body>
 </html>
+
