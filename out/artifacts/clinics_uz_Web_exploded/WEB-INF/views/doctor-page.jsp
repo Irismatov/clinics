@@ -1,46 +1,108 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Doctor</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Doctor Dashboard</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+            rel="stylesheet"
+    />
     <style>
         body {
-            position: relative;
+            font-family: "Roboto", sans-serif;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
         }
 
-        .back-link {
-            position: absolute;
-            top: 10px;
-            left: 10px;
+        .navbar {
+            background-image: url("https://img.freepik.com/free-vector/blue-medical-background-with-hexagonal-shape-design_1017-26839.jpg");
+            background-repeat: no-repeat;
+            background-size: 300% 100%;
+            object-fit: cover;
+            width: 310px;
+            color: #807d88;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            border-right: 1px solid #ddd;
         }
 
-        .button {
-            margin: 10px;
+        .navbar img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .navbar h3,
+        .navbar h4 {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 0;
+        }
+
+        .menu button {
+            background-color: rgba(255, 255, 255, 0.637);
+            width: 90%;
+            margin-bottom: 10%;
+            border: none;
+            padding: 15px;
+            font-size: 17px;
+            text-align: start;
+            border-radius: 13px !important;
+            transition: transform 0.3s ease;
+        }
+
+        .menu button:hover {
+            transform: translateY(-8px);
+        }
+
+        .menu button a {
+            text-decoration: none;
+            color: rgb(95, 94, 94);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+            width: calc(100% - 310px);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
 
         .notification-bell {
+            font-size: 36px;
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 36px; /* Make the bell icon larger */
-            transition: transform 0.2s ease;
-        }
-
-        .shake {
-            animation: shake 0.5s ease;
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 100;
         }
 
         .badge {
@@ -55,87 +117,158 @@
             font-weight: bold;
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-        }
-    </style>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 10px;
-        }
-
-        .button {
-            background-color: #4CAF50; /* Green background */
-            border: none; /* Remove borders */
-            color: white; /* White text */
-            padding: 15px 32px; /* Some padding */
-            text-align: center; /* Centered text */
-            text-decoration: none; /* Remove underline */
-            display: inline-block; /* Make the container behave like a button */
-            font-size: 16px; /* Increase font size */
-            margin: 4px 2px; /* Add some margin */
-            cursor: pointer; /* Add a pointer on hover */
-            border-radius: 8px; /* Rounded corners */
-            transition: background-color 0.3s; /* Smooth background color change */
-        }
-
-        .button a {
+        .info-box {
+            position: relative;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            font-size: 18px;
             color: white;
-            text-decoration: none;
+            margin: 120px 0;
+            background: rgba(0, 0, 0, 0.6);
         }
 
-        .button:hover {
-            background-color: #45a049; /* Darker green on hover */
+        .info-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20210924/pngtree-health-care-abstract-light-effect-icon-decoration-image_906585.png");
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: 0;
+        }
+
+        .info-box::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+        }
+
+        .info-box * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-box p {
+            margin: 20px 0;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: black;
+            font-weight: 700;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 80px; /* Adjust as needed to align with the menu */
+            right: 20px;
+            background-color: lightskyblue;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            z-index: 100;
+        }
+
+        .back-link:hover {
+            background-color: cornflowerblue;
         }
     </style>
 </head>
 <body>
-<div class="button-container">
-<a href="${pageContext.request.contextPath}/" class="back-link">
-    Back to Login
-</a>
-<div style="display: flex; justify-content: center; width: 100%;">
-    <button class="button">
-        <a href="${pageContext.request.contextPath}/appointment/requests">Incoming requests</a>
-    </button>
-
-    <button class="button">
-        <a href="${pageContext.request.contextPath}/accepted-requests/show">New-diagnose</a>
-    </button>
-
-    <button class="button">
-        <a href="${pageContext.request.contextPath}/user-profile">My Profile</a>
-    </button>
+<div class="navbar">
+    <img
+            src="https://i.pinimg.com/564x/e2/1d/42/e21d423f7c1bcea86f1680d47279bd3f.jpg"
+            alt="User Photo"
+    />
+    <h2>${user.firstname}</h2>
+    <h2>${user.lastname}</h2>
+    <h3>${user.email}</h3>
+    <h4>DOCTOR</h4>
+    <div class="menu">
+        <button>
+            <a href="${pageContext.request.contextPath}/appointment/requests"
+            >Incoming Requests</a
+            >
+        </button>
+        <button>
+            <a href="${pageContext.request.contextPath}/accepted-requests/show"
+            >New Diagnose</a
+            >
+        </button>
+        <button>
+            <a href="${pageContext.request.contextPath}/user-profile"
+            >My Profile</a
+            >
+        </button>
+    </div>
+    <a href="${pageContext.request.contextPath}/" class="back-link">Back to Login</a>
 </div>
-
-<c:choose>
-    <c:when test="${not empty appointments}">
-        <a href="${pageContext.request.contextPath}/appointment/new-appointments" class="notification-bell shake">
-            <i class="fas fa-bell"></i>
-            <span class="badge">${fn:length(appointments)}</span> <!-- Show number of new appointments -->
-        </a>
-    </c:when>
-    <c:otherwise>
-        <a href="${pageContext.request.contextPath}/appointment/new-appointments" class="notification-bell" style="color: red">
-            <i class="fas fa-bell"></i>
-        </a>
-    </c:otherwise>
-</c:choose>
+<div class="main-content">
+    <div class="info-box">
+        <strong>Welcome, ${user.firstname} ${user.lastname}!</strong>
+        <p>
+            In this section, you can manage your information, update your details,
+            and check your appointment schedule.
+        </p>
+        <p>
+            You can manage your schedule, accept or decline appointment requests
+            from patients. To use this service, click the 'Incoming requests'
+            button.
+        </p>
+        <p>
+            To manage your profile, change or view your information, click the 'My
+            profile' button.
+        </p>
+        <p>
+            To write a new diagnosis and prescriptions for patients you have
+            already seen, click the 'New diagnosis' button.
+        </p>
+    </div>
+    <c:choose>
+        <c:when test="${not empty appointments}">
+            <a
+                    href="${pageContext.request.contextPath}/appointment/new-appointments"
+                    class="notification-bell"
+            >
+                <i class="fas fa-bell"></i>
+                <span class="badge">${fn:length(appointments)}</span>
+            </a>
+        </c:when>
+        <c:otherwise>
+            <a
+                    href="${pageContext.request.contextPath}/appointment/new-appointments"
+                    class="notification-bell"
+                    style="color: red;"
+            >
+                <i class="fas fa-bell"></i>
+            </a>
+        </c:otherwise>
+    </c:choose>
+</div>
 </body>
 </html>
+
+
+
+
+
 

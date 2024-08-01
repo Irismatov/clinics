@@ -49,10 +49,13 @@ public class AuthController {
         User userEntity = userService.signIn(loginDto.username(), loginDto.password());
         session.setAttribute("user", userEntity);
         if (userEntity.getRole() == UserRole.PATIENT) {
+            model.addAttribute("user", userEntity);
             return "patient-page";
         }else if (userEntity.getRole() == UserRole.MAIN_DOCTOR) {
+            model.addAttribute("user", userEntity);
             return "admin-menu";
         } else if (userEntity.getRole() == UserRole.ADMINISTRATOR) {
+            model.addAttribute("user", userEntity);
             return "administrator-page";
         } else if(userEntity.getRole()!=null) {
             List<Appointment> newAppointments = service.getNewAppointments(userEntity.getId());
@@ -61,6 +64,7 @@ public class AuthController {
                 users.add(userService.findById(newAppointment.getPatient().getId()));
             }
             model.addAttribute("appointments",users);
+            model.addAttribute("user", userEntity);
             return "doctor-page";
         }
         model.addAttribute("error", "Username or password incorrect");

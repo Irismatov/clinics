@@ -72,10 +72,8 @@ public class RoomController {
     }
 
     @RequestMapping("/accept")
-    public String acceptHospitalisation(HttpSession session, @RequestParam("diagnosisId") UUID diagnoseId) {
+    public String acceptHospitalisation(Model model, HttpSession session, @RequestParam("diagnosisId") UUID diagnoseId) {
         Diagnose diagnose = diagnoseService.findById(diagnoseId);
-        diagnose.setAgreedToHospitalization("accept");
-        diagnoseService.update(diagnose);
 
         Optional<Room> availableRoom = roomService.findAvailableRoom();
         if (availableRoom.isPresent()) {
@@ -89,9 +87,17 @@ public class RoomController {
                     .user((User) session.getAttribute("user"))
                     .build();
             roomOccupantService.save(roomOccupant);
-            return "patient-page";
+
+            String message = "You will be accommodated in room No."+availableRoom.get().getNumber() +
+                    ", on the" + availableRoom.get().getFloor() + " floor.";
+            model.addAttribute("successMessage", message);
+            diagnose.setAgreedToHospitalization("accept");
+            diagnoseService.update(diagnose);
+            return "diagnosis-hospitalization-page";
+        } else {
+            model.addAttribute("failMessage", "No room available");
+            return "diagnosis-hospitalization-page";
         }
-        return "index";
     }
 
 
