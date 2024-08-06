@@ -5,12 +5,18 @@
 <head>
     <title>Doctors List</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
         .back-link {
             display: block;
             margin: 20px 0;
             color: #007bff;
             text-decoration: none;
+            font-weight: 500;
         }
 
         .back-link:hover {
@@ -44,10 +50,37 @@
 
         .table thead th {
             background-color: #f8f9fa;
+            font-weight: 700;
         }
 
         .table tbody tr:hover {
             background-color: #f1f1f1;
+        }
+
+        .btn-dark {
+            background-color: #343a40;
+            border: none;
+        }
+
+        .btn-dark:hover {
+            background-color: #23272b;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-body {
+            padding: 2rem;
         }
     </style>
 </head>
@@ -98,10 +131,10 @@
                         <td>${user.address}</td>
                         <td>
                             <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editEventModal${user.id}">Edit</button>
-                            <form action="${pageContext.request.contextPath}/admin/delete-doctor" method="post" style="display:inline;">
-                                <input type="hidden" name="userId" value="${user.id}">
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                            </form>
+                                <%-- <form action="${pageContext.request.contextPath}/admin/delete-doctor" method="post" style="display:inline;">
+                                    <input type="hidden" name="userId" value="${user.id}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>--%>
                         </td>
                     </tr>
 
@@ -192,3 +225,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

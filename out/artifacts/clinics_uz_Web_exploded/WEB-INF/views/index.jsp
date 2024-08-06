@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Title</title>
+    <title>Welcome</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -169,7 +169,7 @@
                     <li>Email:info@beclinic.com</li>
                 </ul>
                 <ul class="d-flex gap-3 pe-4 align-items-center">
-                    <li>For emergency cases:  800 123 45 67</li>
+                    <li>For emergency cases: 103</li>
                     <form action="${pageContext.request.contextPath}/auth/login" method="get">
                         <button class="login">Login</button>
                     </form>
@@ -190,13 +190,7 @@
                                 alt=""
                         />
                     </li>
-                    <li>Home</li>
-                    <li>Doctors</li>
-                </ul>
-                <ul class="pe-4">
-                    <button class="button_hover">
-                        APPOINTMENT
-                    </button>
+                    <li>Always glad to help</li>
                 </ul>
             </nav>
         </header>
@@ -208,11 +202,9 @@
             <div class="text">
                 <h1>Bringing Health to life for the whole family</h1>
                 <button style="background-color: #59d4fb;">
-                    VIEW DEPARTMENTS
+                    <a href="${pageContext.request.contextPath}/auth/register" class="back-button">REGISTER</a>
                 </button>
-                <button style="background-color: rgba(255, 255, 255, 0.375);">
-                    GET IN TOUCH
-                </button>
+
             </div>
         </div>
         <div class="slide">
@@ -223,10 +215,7 @@
             <div class="text">
                 <h1>Your Health, Our Priority</h1>
                 <button style="background-color: #59d4fb;">
-                    VIEW DEPARTMENTS
-                </button>
-                <button style="background-color: rgba(255, 255, 255, 0.375);">
-                    GET IN TOUCH
+                    <a href="${pageContext.request.contextPath}/auth/register" class="back-button">REGISTER</a>
                 </button>
             </div>
         </div>
@@ -239,10 +228,7 @@
             <div class="text">
                 <h1>Your Health, Our Priority</h1>
                 <button style="background-color: #59d4fb;">
-                    VIEW DEPARTMENTS
-                </button>
-                <button style="background-color: rgba(255, 255, 255, 0.375);">
-                    GET IN TOUCH
+                    <a href="${pageContext.request.contextPath}/auth/register" class="back-button">REGISTER</a>
                 </button>
             </div>
         </div>
@@ -286,3 +272,4 @@
 ></script>
 </body>
 </html>
+

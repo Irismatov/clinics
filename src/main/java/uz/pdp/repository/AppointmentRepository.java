@@ -95,6 +95,8 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
 
 
     public UUID findAppointmentId(UUID doctorId) {
+
+        // do not catch exception in repository
         try {
             List<UUID> resultList = entityManager.createQuery(
                             "SELECT a.id FROM Appointment a WHERE a.doctor.id = :doctor_id",
