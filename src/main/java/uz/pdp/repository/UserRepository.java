@@ -1,19 +1,13 @@
 package uz.pdp.repository;
-
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
-import uz.pdp.exception.DataNotFoundException;
 import uz.pdp.exception.InvalidInputException;
-
 import java.util.List;
-import java.util.UUID;
 
 
 @Repository

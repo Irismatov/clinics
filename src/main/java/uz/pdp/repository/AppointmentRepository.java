@@ -96,14 +96,21 @@ public class AppointmentRepository extends BaseRepository<Appointment> {
 
     public UUID findAppointmentId(UUID doctorId) {
         try {
-            return entityManager.createQuery(
+            List<UUID> resultList = entityManager.createQuery(
                             "SELECT a.id FROM Appointment a WHERE a.doctor.id = :doctor_id",
                             UUID.class
                     ).setParameter("doctor_id", doctorId)
-                    .getSingleResult();
+                    .setMaxResults(1)
+                    .getResultList();
+            if (resultList.isEmpty()) {
+                return null;
+            } else {
+                return resultList.get(0);
+            }
         } catch (DataNotFoundException e) {
             return null;
         }
     }
+
 
 }

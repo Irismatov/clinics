@@ -1,12 +1,10 @@
 package uz.pdp.repository;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import uz.pdp.entity.Room;
-
 import java.util.List;
-import java.util.UUID;
+
 
 @Repository
 public class RoomRepository extends BaseRepository<Room> {

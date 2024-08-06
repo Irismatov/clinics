@@ -1,14 +1,10 @@
 package uz.pdp.service;
-import jakarta.servlet.http.Part;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import uz.pdp.DTO.RegisterDTO;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.repository.UserRepository;
-
-import javax.mail.Multipart;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -116,4 +112,5 @@ public class UserService extends BaseService<User, UserRepository>{
         }
         return "file-" + UUID.randomUUID();
     }
+
 }

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import uz.pdp.entity.Appointment;
 import uz.pdp.entity.User;
 import uz.pdp.enumerators.UserRole;
 import uz.pdp.service.AppointmentService;

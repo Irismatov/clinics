@@ -6,7 +6,6 @@ import uz.pdp.entity.RoomOccupant;
 import uz.pdp.repository.RoomOccupantRepository;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class RoomOccupantService extends BaseService<RoomOccupant, RoomOccupantRepository> {
