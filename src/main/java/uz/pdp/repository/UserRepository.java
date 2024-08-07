@@ -73,8 +73,8 @@ public class UserRepository extends BaseRepository<User> {
     public List<User> getDoctors(){
         return entityManager.createQuery(
                         "SELECT e FROM User e WHERE e.role NOT IN (:excludedRoles)", User.class)
-                .setParameter("excludedRoles", List.of("MAIN_DOCTOR","PATIENT", "ADMINISTRATOR"))
-                .getResultList();
+                .setParameter("excludedRoles", List.of("MAIN_DOCTOR"))
+                .getResultList(); ///,"PATIENT", "ADMINISTRATOR"
     }
 
 

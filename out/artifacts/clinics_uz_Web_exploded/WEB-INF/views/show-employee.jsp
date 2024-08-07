@@ -131,10 +131,10 @@
                         <td>${user.address}</td>
                         <td>
                             <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#editEventModal${user.id}">Edit</button>
-                                <%-- <form action="${pageContext.request.contextPath}/admin/delete-doctor" method="post" style="display:inline;">
+                                <form action="${pageContext.request.contextPath}/admin/delete-doctor" method="post" style="display:inline;">
                                     <input type="hidden" name="userId" value="${user.id}">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>--%>
+                                </form>
                         </td>
                     </tr>
 
